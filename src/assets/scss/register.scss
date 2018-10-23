@@ -1,0 +1,45 @@
+    .uk-vertical-align-middle{
+        text-align: center;
+    }
+
+    .logo-img{
+        width: 50px;
+        height: 50px;
+        margin-top: 20px;
+    }
+    .uk-heading{
+        color:orange;
+        margin-bottom: 10px;
+    }
+
+    hr{ border: 0; 
+        height: 1px; 
+        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), orange, rgba(0, 0, 0, 0));
+        width: 80%;
+        margin: auto ;
+    }
+
+    .uk-inline{
+        margin:10px;
+    }
+
+    .uk-input{
+        min-height:20px;
+        max-height:30px;
+    }
+
+    .uk-container-expand .uk-vertical-align-middle{
+        .uk-button-default{
+            color:black;
+            border:solid 1px orange;
+            font-weight: bold;
+            background-color:orange;
+            min-height: 10px;
+            min-height: 20px;
+            margin: 10px;
+        }
+    }
+    
+
+    
+
