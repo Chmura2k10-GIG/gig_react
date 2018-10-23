@@ -10,27 +10,27 @@ export default class Login extends Component {
         errors:[]
     };
         this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onSubmit = this.onSubmit.bind(this); //wcięcia
     }
 
     onChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value }); //wcięcia do poprawy
     }
 
     onSubmit(e) {
         e.preventDefault();
 
-        this.setState({ submitted: true });
+        this.setState({ submitted: true }); // po chuj to jak w stejcie nie masz nawet takiego pola ?
         const { email, password } = this.state;
         let { errors } = this.state;
-        var url = 'https://localhost:8081/users/login';
+        const url = 'http://localhost:3000/users/login';
 
         if (email && password) {
             
             var data = {
-                email:"tes4t@example",
-                password:"example"
+                "email":"test@example.com",
+                "password":"test"
             }
             if(!this.validateEmail(email)){
                 console.log("invalid email");
@@ -46,24 +46,25 @@ export default class Login extends Component {
                     {
                         method: 'POST',
                         body: JSON.stringify(data),
+                        mode:'cors',
                         headers:{
                             'Content-Type': 'application/json'
                         }
                     }
-                ).then(res => res.json())
-                .then(response => console.log('Success: ', JSON.stringify(response)))
-                .catch(error => console.error('Error: ', error));
+                )
+                .then(res => console.log(res))
             }
         }
     }
 
     validateEmail(email) {
+        // nie uzywamy varow
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
     render() {
-        console.log(this.state.errors);
+        console.log(this.state.errors); // do usuniecia
         return (
         <div>
             <div className="uk-container uk-container-expand">
