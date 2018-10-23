@@ -1,8 +1,7 @@
-    
     .whole-screen{
         margin: 0 auto;
         height: 100%;
-        padding-bottom: 100px;
+        background-color:#3b3635;
     }
     .uk-vertical-align-middle{
         text-align: center;
@@ -33,12 +32,8 @@
     .uk-input{
         min-height:20px;
         max-height:30px;
-        -webkit-border-radius: 50px;
-        -moz-border-radius: 50px;
         border-radius: 50px;
-=======
         border-radius: 5px;
->>>>>>> 80dc15e8c937eae496170cf5e45b18b7bf790908
     }
 
     .uk-container-expand .uk-vertical-align-middle{
@@ -49,7 +44,6 @@
             background-color:orange;
             min-height: 10px;
             min-height: 20px;
-<<<<<<< HEAD
             min-width: 200px;
             max-width: 300px;
             -webkit-border-radius: 50px;
@@ -58,10 +52,8 @@
         }
         label{
             margin-right:20px;
-=======
             margin: 10px;
             border-radius: 5px;
->>>>>>> 80dc15e8c937eae496170cf5e45b18b7bf790908
         }
         .uk-radio
         {

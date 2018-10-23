@@ -37,8 +37,14 @@ export default class Register extends Component {
     onSubmit(e) {
         e.preventDefault();
         const { email, password,firstName,lastName,username,gender } = this.state;
-        this.setState({errors: []});
-        let {errors} = this.state.errors;
+        
+        let {errors} = this.state;
+        const url = 'http://localhost:3000/users';
+
+        let data = {
+            "email":"test@example.com",
+            "password":"test"
+        }
 
         if (email && password && firstName && lastName && username) {
 
@@ -64,9 +70,24 @@ export default class Register extends Component {
             console.log("you need to choose gender");
             errors.push("you need to choose gender");
         }
+        else{
+            this.setState({errors:[]});
+            fetch(url,
+                {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    mode:'cors',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            .then(res => console.log(res))
+        }
     }
 
   render() {
+
 
     const options = [];
     for(let i=16;i<=100;i++){
@@ -125,7 +146,9 @@ export default class Register extends Component {
                                 <br/>
                             </div>
                             <div className = "error uk-margin">
-                            {this.state.errors.map(errors => (<p key={this.state.errors}>{this.state.errors}</p>))}
+                            dupa dupa
+                            <label>{console.log(this.state.errors)}</label>
+                            {this.state.errors.map((error,i) => (<p key={i}>{error}</p>))}
                             </div>
                         </div>
                     </div>
