@@ -1,11 +1,18 @@
+    
+    .whole-screen{
+        margin: 0 auto;
+        height: 100%;
+        padding-bottom: 100px;
+    }
     .uk-vertical-align-middle{
         text-align: center;
     }
 
     .logo-img{
-        width: 50px;
-        height: 50px;
-        margin-top: 20px;
+        min-width: 50px;
+        min-height: 50px;
+        max-width: 75px;
+        max-height: 75px;
     }
     .uk-heading{
         color:orange;
@@ -26,6 +33,9 @@
     .uk-input{
         min-height:20px;
         max-height:30px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
     }
 
     .uk-container-expand .uk-vertical-align-middle{
@@ -36,8 +46,26 @@
             background-color:orange;
             min-height: 10px;
             min-height: 20px;
-            margin: 10px;
+            min-width: 200px;
+            max-width: 300px;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
         }
+        label{
+            margin-right:20px;
+        }
+        .uk-radio
+        {
+            background-color:black;
+            margin-left:20px;
+            border: 0;
+        }
+        .error
+        {
+            color:red;
+        }
+
     }
     
 
