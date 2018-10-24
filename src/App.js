@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import Register from "./components/Register"
 import Login from "./components/Login"
+import Notifications from 'react-notify-toast';
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      isRegistered:false,
+      username:''
+    }
+    this.setAuth= this.setAuth.bind(this);
+  }
+
+  setAuth(email){
+    this.setState({ username:email, isRegistered : true })
+  }
+
   render() {
+    const { isRegistered, username } = this.state;
+    console.log(username, "DUPA KURA")
     return (
-      <Login></Login>
+      <div>
+        <Notifications></Notifications>
+        {isRegistered ? <Login email2={username}></Login>: <Register username={username} isRegistered={this.setAuth}></Register>  }
+      </div>
     );
   }
 }
