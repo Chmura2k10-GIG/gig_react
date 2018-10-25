@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    machine:
+    node:
+      version: 9.11.1
     working_directory: /home/gig_react
     steps:
       - checkout
