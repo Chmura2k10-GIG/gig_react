@@ -4,11 +4,7 @@ jobs:
     machine:
       node:
         version: 9.11.1
-    working_directory: /home/gig_react
     steps:
       - checkout
-      - run: mkdir -p /home/gig_react/artifacts
       - run: npm install
       - run: npm test
-      - store_artifacts:
-          path: /home/gig_react/artifacts
