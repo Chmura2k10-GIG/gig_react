@@ -37,7 +37,7 @@ export default class Register extends Component {
         const { email, password, firstName, lastName, username, gender } = this.state;
         const { isRegistered } = this.props;
         let errors  = [];
-        const url = 'http://localhost:3000/users';
+        const url = 'http://e3a5e7a8.ngrok.io/users';
 
         if (email && password) {
 

@@ -26,7 +26,7 @@ export default class Login extends Component {
         this.setState({ submitted: true });
         const { email, password } = this.state;
         let { errors } = this.state;
-        const url = 'http://localhost:3000/users/login';
+        const url = 'http://e3a5e7a8.ngrok.io/users/login';
 
         if (email && password) {
             
@@ -80,7 +80,7 @@ export default class Login extends Component {
                 <img className="uk-align-left logo-img" src={require('./../assets/images/GigLogoOrange.png')} alt="" />
             </div>
             <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit}>
-                {/* {authToken ? <p>{authToken["auth_token"]}</p> :null } */}
+                {authToken ? <p>{authToken["auth_token"]}</p> :null }
                 <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">Login</h1>
                 <hr></hr>
                 <div className="uk-flex uk-flex-center">

@@ -18,7 +18,6 @@ class App extends Component {
 
   render() {
     const { isRegistered, username } = this.state;
-    console.log(username, "DUPA KURA")
     return (
       <div>
         <Notifications></Notifications>
