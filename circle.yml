@@ -1,9 +1,11 @@
-machine:
-  node:
-    version: 9.11.1
-test:
-  override:
-    - npm test -- --coverage
-  post:
-    - npm install -g codeclimate-test-reporter
-    - codeclimate-test-reporter < coverage/lcov.info
+version: 2
+jobs:
+  build:
+    working_directory: /home/gig_react
+    steps:
+      - checkout
+      - run: mkdir -p /home/gig_react/artifacts
+      - run: npm install
+      - run: npm test
+      - store_artifacts:
+          path: /home/gig_react/artifacts
