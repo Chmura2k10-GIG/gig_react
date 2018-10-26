@@ -20,9 +20,13 @@ class App extends Component {
     const { isRegistered, username } = this.state;
     return (
       <div>
-        <Notifications></Notifications>
-        {isRegistered ? <Login email2={username}></Login>: <Register username={username} isRegistered={this.setAuth}></Register>  }
+        <Login email2="xD"></Login>
       </div>
+      // <div>
+      //   <Notifications></Notifications>
+
+      //   {isRegistered ? <Login email2={username}></Login>: <Register username={username} isRegistered={this.setAuth}></Register>  }
+      // </div>
     );
   }
 }

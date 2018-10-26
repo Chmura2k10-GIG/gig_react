@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Notifications, { notify } from 'react-notify-toast';
+import api from '../api';
 
 export default class Login extends Component {
   constructor(props){
@@ -42,25 +43,26 @@ export default class Login extends Component {
             // }
             // else{
                 this.setState({errors:[]});
-                fetch(url,
-                    {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        mode:'cors',
-                        headers:{
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                )
-                .then(res => {
-                    // do refactoru Kacper
-                    if(res.status !== 200){
-                        notify.show("Invalid email or password", 'error');
-                        return;
-                    }
-                    return res.json();
-                })
-                .then(token => this.setState({ authToken: token }))
+                api.postLogin(data)
+                // fetch(url,
+                //     {
+                //         method: 'POST',
+                //         body: JSON.stringify(data),
+                //         mode:'cors',
+                //         headers:{
+                //             'Content-Type': 'application/json'
+                //         }
+                //     }
+                // )
+                // .then(res => {
+                //     // do refactoru Kacper
+                //     if(res.status !== 200){
+                //         notify.show("Invalid email or password", 'error');
+                //         return;
+                //     }
+                //     return res.json();
+                // })
+                // .then(token => this.setState({ authToken: token }))
             }
         // }
     }

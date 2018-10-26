@@ -126,10 +126,10 @@ export default class Register extends Component {
                             </div>
                         </div>
                         <div className="uk-container uk-container-expand uk-vertical-align-middle">
-                            <div className="uk-margin" onChange={this.setGender.bind(this)}>
+                            {/* <div className="uk-margin" onChange={this.setGender.bind(this)}>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Male" /> Male</label>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Female" /> Female</label>
-                            </div>
+                            </div> */}
                             <div className="uk-margin">
                                 <div className=".uk-button-mini uk-form-select" data-uk-form-select>
                                     <span>Age: </span>
