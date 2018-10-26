@@ -8,10 +8,10 @@
     }
 
     .logo-img{
-        min-width: 50px;
-        min-height: 50px;
-        max-width: 75px;
-        max-height: 75px;
+        min-width: 75px;
+        min-height: 75px;
+        max-width: 100px;
+        max-height: 100px;
     }
     .uk-heading{
         color:orange;
@@ -64,6 +64,7 @@
         .error
         {
             color:red;
+            font-size:10px;
         }
 
     }

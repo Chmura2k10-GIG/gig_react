@@ -18,7 +18,6 @@ export default class Register extends Component {
         this.onSubmit=this.onSubmit.bind(this)
     }
 
-
     onChange(e){
         this.setState({ [e.target.name]:e.target.value})
         }
@@ -37,7 +36,7 @@ export default class Register extends Component {
     onSubmit(e) {
         e.preventDefault();
         const { email, password,firstName,lastName,username,gender } = this.state;
-        
+
         let {errors} = this.state;
         const url = 'http://localhost:3000/users';
 
@@ -46,7 +45,7 @@ export default class Register extends Component {
             "password":"test"
         }
 
-        if (email && password && firstName && lastName && username) {
+        if (email && password && firstName && lastName && username && gender) {
 
             if(!this.validateEmail(email)){
                 console.log("invalid email");
@@ -65,30 +64,22 @@ export default class Register extends Component {
             console.log("you need to fill all fields");
             errors.push("you need to fill all fields");
         }
-        if(!gender)
-        {
-            console.log("you need to choose gender");
-            errors.push("you need to choose gender");
-        }
-        else{
-            this.setState({errors:[]});
-            fetch(url,
-                {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    mode:'cors',
-                    headers:{
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            .then(res => console.log(res))
-        }
+
+            //this.setState({errors:[]});
+            // fetch(url,
+            //     {
+            //         method: 'POST',
+            //         body: JSON.stringify(data),
+            //         mode:'cors',
+            //         headers:{
+            //             'Content-Type': 'application/json'
+            //         }
+            //     }
+            // )
+            // .then(res => console.log(res))
     }
 
   render() {
-
-
     const options = [];
     for(let i=16;i<=100;i++){
         options.push(<option key={i}>{i}</option>)
@@ -99,7 +90,7 @@ export default class Register extends Component {
             <div className="uk-container uk-container-expand uk-margin-bottom">
                 <img className="uk-align-left logo-img" src={require('./../assets/images/GigLogoOrange.png')} alt="" />
             </div>
-                <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit}>
+                <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit} >
                     <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">Register</h1>
                     <hr></hr>
                     <div className="uk-container uk-container-expand uk-vertical-align-middle ">
@@ -146,9 +137,8 @@ export default class Register extends Component {
                                 <br/>
                             </div>
                             <div className = "error uk-margin">
-                            dupa dupa
                             <label>{console.log(this.state.errors)}</label>
-                            {this.state.errors.map((error,i) => (<p key={i}>{error}</p>))}
+                            {this.state.errors.map((error,i) => (<p key={i}>{error}</p>)) }
                             </div>
                         </div>
                     </div>
