@@ -1,74 +1,69 @@
-    .whole-screen{
-        margin: 0 auto;
-        height: 100%;
-        background-color:#3b3635;
-    }
-    .uk-vertical-align-middle{
-        text-align: center;
+    .whole-screen {
+      margin: 0 auto;
+      height: 100%;
+      background-color: #3b3635;
     }
 
-    .logo-img{
-        min-width: 75px;
-        min-height: 75px;
-        max-width: 100px;
-        max-height: 100px;
-    }
-    .uk-heading{
-        color:orange;
-        margin-bottom: 10px;
+    .uk-vertical-align-middle {
+      text-align: center;
     }
 
-    hr{ border: 0; 
-        height: 1px; 
-        background-image: linear-gradient(to right, rgba(0, 0, 0, 0), orange, rgba(0, 0, 0, 0));
-        width: 80%;
-        margin: auto ;
+    .logo-img {
+      min-width: 50px;
+      min-height: 50px;
+      max-width: 75px;
+      max-height: 75px;
     }
 
-    .uk-inline{
-        margin:10px;
+    .uk-heading {
+      color: orange;
+      margin-bottom: 10px;
     }
 
-    .uk-input{
-        min-height:20px;
-        max-height:30px;
+    hr {
+      border: 0;
+      height: 1px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0), orange, rgba(0, 0, 0, 0));
+      width: 80%;
+      margin: auto;
+    }
+
+    .uk-inline {
+      margin: 10px;
+    }
+
+    .uk-input {
+      min-height: 20px;
+      max-height: 30px;
+      border-radius: 50px;
+      border-radius: 5px;
+    }
+
+    .uk-container-expand .uk-vertical-align-middle {
+      .uk-button-default {
+        color: black;
+        border: solid 1px orange;
+        font-weight: bold;
+        background-color: orange;
+        min-height: 10px;
+        min-height: 20px;
+        min-width: 200px;
+        max-width: 300px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
         border-radius: 50px;
+      }
+      label {
+        margin-right: 20px;
+        margin: 10px;
         border-radius: 5px;
+      }
+      .uk-radio {
+        background-color: black;
+        margin-left: 20px;
+        border: 0;
+      }
+      .error {
+        color: red;
+      }
     }
-
-    .uk-container-expand .uk-vertical-align-middle{
-        .uk-button-default{
-            color:black;
-            border:solid 1px orange;
-            font-weight: bold;
-            background-color:orange;
-            min-height: 10px;
-            min-height: 20px;
-            min-width: 200px;
-            max-width: 300px;
-            -webkit-border-radius: 50px;
-            -moz-border-radius: 50px;
-            border-radius: 50px;
-        }
-        label{
-            margin-right:20px;
-            margin: 10px;
-            border-radius: 5px;
-        }
-        .uk-radio
-        {
-            background-color:black;
-            margin-left:20px;
-            border: 0;
-        }
-        .error
-        {
-            color:red;
-            font-size:10px;
-        }
-
-    }
-    
-
-    
-
