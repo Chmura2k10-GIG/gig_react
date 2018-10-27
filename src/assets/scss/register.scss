@@ -9,10 +9,10 @@
     }
 
     .logo-img {
-      min-width: 50px;
-      min-height: 50px;
-      max-width: 75px;
-      max-height: 75px;
+      min-width: 75px;
+      min-height: 75px;
+      max-width: 100px;
+      max-height: 100px;
     }
 
     .uk-heading {
@@ -49,9 +49,12 @@
         min-height: 20px;
         min-width: 200px;
         max-width: 300px;
-        -webkit-border-radius: 50px;
-        -moz-border-radius: 50px;
         border-radius: 50px;
+      }
+
+      .uk-button-default:focus {
+        outline:0;
+        border:none;
       }
       label {
         margin-right: 20px;
@@ -66,4 +69,27 @@
       .error {
         color: red;
       }
+
+      .uk-form-select select{
+        background-color: orange;
+        font-weight: bold;
+        border-radius: 50px;
+        width:100%;
+        height:100%;
+        border: 1px solid transparent;
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        cursor: pointer;
+        appearance: black;
+        text-align: center;
+      }
+      .uk-form-select{
+        text-align: center;
+      }
+
+      .uk-form-select select:focus{
+        outline:0;
+        border:none;
+      }
+
+
     }
