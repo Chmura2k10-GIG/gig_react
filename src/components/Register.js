@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import logo from './../assets/images/GigLogoOrange.png';
 import Notifications, { notify } from 'react-notify-toast';
+import api from "../api";
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -82,19 +83,22 @@ export default class Register extends Component {
                     "password":password
                 }
             }
-            fetch(url,
-                {
-                    method: 'POST',
-                    body: JSON.stringify(params),
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            .then(res => console.log(res))
-            .then( () => isRegistered(email))
-        }else {notify.show("Cannot connect to server",'error');}
+            api.postRegister(params);
+        //     }
+        //     fetch(url,
+        //         {
+        //             method: 'POST',
+        //             body: JSON.stringify(params),
+        //             mode: 'cors',
+        //             headers: {
+        //                 'Content-Type': 'application/json'
+        //             }
+        //         }
+        //     )
+        //     .then(res => console.log(res))
+        //     .then( () => isRegistered(email))
+        // }else {notify.show("Cannot connect to server",'error');
+        }
     }
     
     render() {
@@ -141,7 +145,7 @@ export default class Register extends Component {
                             <div className="uk-margin" onChange={this.onChange.bind(this)}>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Male" /> Male</label>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Female" /> Female</label>
-                            </div>
+                            </div> */}
                             <div className="uk-margin">
                                 <div className="uk-inline">
                                     <div className="uk-button-mini uk-form-select">
