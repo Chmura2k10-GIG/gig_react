@@ -28,7 +28,7 @@ class Api {
     this.setHeaders();
     this.api.post("users", userData).then(res => notify.show);
     
-    notify.show(Connected,"success");
+    notify.show("Connected",'success');
   }
 }
 

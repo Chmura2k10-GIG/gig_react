@@ -145,7 +145,7 @@ export default class Register extends Component {
                             <div className="uk-margin" onChange={this.onChange.bind(this)}>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Male" /> Male</label>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Female" /> Female</label>
-                            </div> */}
+                            </div>
                             <div className="uk-margin">
                                 <div className="uk-inline">
                                     <div className="uk-button-mini uk-form-select">
@@ -160,14 +160,15 @@ export default class Register extends Component {
                                 <button className="uk-button uk-button-default" type="submit">REGISTER</button>
                                 <br />
                             </div>
-                            {/* <div className="error uk-margin">
-                                <label></label>
-                               // {this.state.errors.map((error, i) => (<p key={i}>{error}</p>))}
-                            </div> */}
                         </div>
                     </div>
                 </form>
             </div>
         )
     }
+
+                                /* <div className="error uk-margin">
+                                <label></label>
+                               // {this.state.errors.map((error, i) => (<p key={i}>{error}</p>))}
+                            </div> */
 }

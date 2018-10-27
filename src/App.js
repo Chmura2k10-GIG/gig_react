@@ -22,7 +22,8 @@ class App extends Component {
     return (
       <div>
         <Notifications />
-        <Login />
+        <Register />
+
       </div>
       // <div>
       //   <Notifications></Notifications>
