@@ -83,7 +83,7 @@ export default class Register extends Component {
                     "password":password
                 }
             }
-            api.postRegister(params);
+            api.createUser(params);
         //     }
         //     fetch(url,
         //         {
