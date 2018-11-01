@@ -1,15 +1,19 @@
 import React, { Component } from "react";
-import Notifications, { notify } from "react-notify-toast";
+import { notify } from "react-notify-toast";
 import api from "../api";
+import logo from '../assets/images/GigLogoOrange.png';
+import { connect } from 'react-redux'
+import { setToken } from '../actions/user'
+import { Redirect } from 'react-router-dom'
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
       errors: [],
-      authToken: ""
+      isLogged:false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,33 +27,31 @@ export default class Login extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
-    this.setState({ submitted: true });
     const { email, password } = this.state;
+    const { setToken } = this.props;
     let { errors } = this.state;
+    const data = {
+      email: email,
+      password: password
+    };
 
-    if (email && password) {
-      const data = {
-        email: email,
-        password: password
-      };
-      if (!this.validateEmail(email)) {
-        notify.show("Invalid email", "error");
-        errors.push("invalid email");
-      } else {
-        this.setState({ errors: [] });
-        api.postLogin(data);
-        // .then(res => {
-        //     // do refactoru Kacper
-        //     if(res.status !== 200){
-        //         notify.show("Invalid email or password", 'error');
-        //         return;
-        //     }
-        //     return res.json();
-        // })
-        // .then(token => this.setState({ authToken: token }))
-      }
-    }
+
+    // if (email && password) {
+    //   if (!this.validateEmail(email)) {
+    //     notify.show("Invalid email", "error");
+    //     errors.push("invalid email");
+    //   } else {
+    //     this.setState({ errors: [] });
+    //   }
+    // }
+    api.setToken(data)
+      .then(res => {
+        setToken(res.data["auth_token"])
+        this.setState({ isLogged: true })
+      });
+
+
+      //wrzuć sobie to spowrotem w te ify
   }
 
   validateEmail(email) {
@@ -58,13 +60,20 @@ export default class Login extends Component {
   }
 
   render() {
-    const { email, password, authToken } = this.state;
+    // brakuje jakiegoś info typu "Nie masz konta, kliknij button aby zarejestrować się lub whatever"
+    
+    const { email, password, isLogged } = this.state;
+    if(isLogged){
+      return(
+        <Redirect to="/dashboard"/>
+      )
+    }
     return (
       <div>
         <div className="uk-container uk-container-expand">
           <img
             className="uk-align-left logo-img"
-            src={require("./../assets/images/GigLogoOrange.png")}
+            src={logo}
             alt=""
           />
         </div>
@@ -72,7 +81,6 @@ export default class Login extends Component {
           className="uk-panel uk-panel-box uk-form"
           onSubmit={this.onSubmit}
         >
-          {authToken ? <p>{authToken["auth_token"]}</p> : null}
           <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">
             Login
           </h1>
@@ -119,3 +127,7 @@ export default class Login extends Component {
     );
   }
 }
+
+
+
+export default connect(null, { setToken })(Login)
