@@ -1,4 +1,5 @@
 import axios from "axios";
+// wywalić nieużywane importy
 import Notifications, { notify } from "react-notify-toast";
 import { networkInterfaces } from "os";
 
@@ -21,6 +22,7 @@ class Api {
   postLogin(userData) {
     this.setHeaders();
     this.api.post("users/login", userData).then(res => console.log);
+    // po co te console logi
     console.log("success");
   }
 
@@ -29,6 +31,7 @@ class Api {
     this.api.post("users", userData).then(res => notify.show)
     .catch((error) =>{
       if(error.res)
+      // po co console logi
       {
         console.log(error.response.data);
         console.log(error.response.status);
@@ -45,6 +48,9 @@ class Api {
     });
     //notify.show("succes",'success');
   }
+
+
+  // wywalic -->
 
   // createUser2(userData)
   // {

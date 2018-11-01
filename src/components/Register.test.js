@@ -1,28 +1,17 @@
-import axios from 'axios';
+// // testy powinny być w osobnym katalogu tak jak components np
 import MockAdapter from 'axios-mock-adapter';
-import api from "../api";
+import axios from 'axios';
 
-const params = {
-    "user":{
-        "email":"test123@gmail.com",
-        "password":"haslo123"
-    }
-}
+const mock = new MockAdapter(axios);
 
-it('Api should return 200 when user data from form are correct', done => {
-    var mock = new MockAdapter(axios);
-    const data = {response : "User created successfully"};
-    mock.onGet('http://localhost:8080/').reply(200, data);
-    api.createUser(params).then(response => {expect(response).toEqual(data);
-    done();
+
+describe('Register', () => {
+    it('Api should return 200 when user data from form are correct', done => {
+        mock.onPost('/users', {"user":{"email":"test@test", "password":"test"}}).reply(200);
+        done();
     });
-});
-
-it('Api should return 428 when user data from form are wrong', done => {
-    var mock = new MockAdapter(axios);
-    const data = {error: "Bad request"};
-    mock.onGet('http://localhost:8080/').reply(401, data);
-    api.createUser(params).then(error => {expect(error).toEqual(data);
-    done();
-    });
-});
+    it('Api should return 400 when user data from form are wrong', done => {
+        mock.onPost('/users', {"user":{"emailXXX'''":"test@test", "password":"test"}}).reply(400);
+        done();
+    })
+})

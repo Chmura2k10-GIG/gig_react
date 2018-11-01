@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import logo from './../assets/images/GigLogoOrange.png';
 import Notifications, { notify } from 'react-notify-toast';
 import api from "../api";
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -26,14 +27,24 @@ export default class Register extends Component {
     }
 
     validateEmail(email) {
+        // re nigdzie się nie zmienia, a skoro tak to powinien być tutaj const
         let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
-    validateForm(email,password,firstName,lastName,username,gender,city)
-    {
+    validateForm(email,password,firstName,lastName,username,gender,city){
+        // teraz tak trochę z pizdy jest, zrób to tak że do validateForm przekażesz obiekt czyli:
+        // const params = {
+            // email: email,
+            // username: username
+        //}
+        // i to samo z pozostałymi parametrami, później przejedź po kluczach obiektu(Object.keys(nazwa_obiektu)) używając funkcji forEach:
+        //  i dla każdego parametru  (Object.values(nazwa_obiektu)) sprawdzisz te warunki które sprawdzasz w ifach swoich, jeżeli gdzieś
+        // walidacja nie przejdzie to dasz wtedy errors.push(`invalid ${key}`) np.
+        // w ten sposób będzie czytelniej a sama funkcja się skróci o 35-40 linijek.
+
+
         let errors  = [];
-        
         if (!this.validateEmail(email)) {
             notify.show("Invalid email", 'error');
             errors.push("invalid email");
@@ -73,8 +84,12 @@ export default class Register extends Component {
         e.preventDefault();
         const { email, password, firstName, lastName, username, gender,city } = this.state;
         if(this.validateForm(email,password,firstName,lastName,username,gender,city)){
+            // po co ten notify?
             notify.show("Connecting...",'success');
+
+            //nie widzę żebyś gdzieś używał tej zmiennej
             const { isRegistered } = this.props;
+
             const url = 'http://e3a5e7a8.ngrok.io/users';
             this.setState({ errors: [] });
             const params = {
@@ -84,7 +99,18 @@ export default class Register extends Component {
                 }
             }
             api.createUser(params);
-        //     }
+
+        // powinno to wyglądać tak:
+        // api.createUser(params)
+            //.then( () => this.setState({ created: true }))
+            // .catch( err => notify.show(err,'error'))
+
+        // i np jak created jest na true to chowaj formularz a wyświetlaj komunikat w divie czy tam w czym "Udało się zarejestrować"
+        // i pod tym button "Przejdź do logowania" który przekieruje na strone z logowaniem
+        // lub coś w ten deseń 
+        
+        
+        // to niżej do wyjebania
         //     fetch(url,
         //         {
         //             method: 'POST',
@@ -150,6 +176,8 @@ export default class Register extends Component {
                                 <div className="uk-inline">
                                     <div className="uk-button-mini uk-form-select">
                                     Age:
+                                    {// ostyluj też tą rozwijaną liste selecta, scrollbar itp bo wygląda to chujowo
+                                    }
                                     <select>
                                         {options}
                                     </select>
@@ -166,6 +194,9 @@ export default class Register extends Component {
             </div>
         )
     }
+
+
+    // jak nie używsz to do wyjebania
 
                                 /* <div className="error uk-margin">
                                 <label></label>
