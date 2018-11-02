@@ -1,4 +1,3 @@
-// // testy powinny być w osobnym katalogu tak jak components np
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
 

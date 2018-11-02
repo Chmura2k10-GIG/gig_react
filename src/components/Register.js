@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import logo from './../assets/images/GigLogoOrange.png';
 import Notifications, { notify } from 'react-notify-toast';
 import api from "../api";
+import { isNull } from 'util';
 
 export default class Register extends Component {
     constructor(props) {
@@ -11,7 +12,7 @@ export default class Register extends Component {
             email: '',
             password: '',
             gender: null,
-            accepted: 'false',
+            created: 'false',
             firstName: '',
             lastName: '',
             city: '',
@@ -24,57 +25,39 @@ export default class Register extends Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
+        console.log(this.state);
     }
 
     validateEmail(email) {
-        // re nigdzie się nie zmienia, a skoro tak to powinien być tutaj const
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
-    validateForm(email,password,firstName,lastName,username,gender,city){
-        // teraz tak trochę z pizdy jest, zrób to tak że do validateForm przekażesz obiekt czyli:
-        // const params = {
-            // email: email,
-            // username: username
-        //}
-        // i to samo z pozostałymi parametrami, później przejedź po kluczach obiektu(Object.keys(nazwa_obiektu)) używając funkcji forEach:
-        //  i dla każdego parametru  (Object.values(nazwa_obiektu)) sprawdzisz te warunki które sprawdzasz w ifach swoich, jeżeli gdzieś
-        // walidacja nie przejdzie to dasz wtedy errors.push(`invalid ${key}`) np.
-        // w ten sposób będzie czytelniej a sama funkcja się skróci o 35-40 linijek.
-
-
+    validateForm(params){
         let errors  = [];
-        if (!this.validateEmail(email)) {
-            notify.show("Invalid email", 'error');
-            errors.push("invalid email");
-        }
-        if (password.length < 8) {
-            notify.show("Password is too short, minimum is 8 signs", 'error');
-            errors.push("Password is too short");
-        }
-        if (username.length < 8) {
-            notify.show("Username is too short, minimum is 8 signs", 'error');
-            errors.push("Username is too short");
-        }
-        if (!gender) {
-            notify.show("You need to choose your gender", 'error');
-            errors.push("You need to choose ender");
-        }
-        if (!firstName) {
-            notify.show("You need to fill first name field", 'error');
-            errors.push("You need to fill first name field");
-        }
-        if (!lastName) {
-            notify.show("You need to fill last name field", 'error');
-            errors.push("You need to fill last name field");
-        }
-        if (!city) {
-            notify.show("You need to fill city field", 'error');
-            errors.push("You need to fill city field");
-        }
 
-        if(errors.length > 1){
+        Object.keys(params.user).map(key => {
+                if(!params.user[key]){
+                    errors.push(`invalid ${key}`);
+                    console.log('rest');
+                }else if(key == "email")
+                {
+                    if(!this.validateEmail(params.user[key]))
+                    {
+                        errors.push(`invalid ${key}`);
+                        console.log('email');
+                    }
+                }else if(key == "password" || key == "username")
+                {
+                    if(params.user[key].length < 8)
+                    {
+                        errors.push(`${key} is too short(minimum 8 signs)`);
+                        console.log('password and username');
+                    }
+                }
+        });
+        
+        if(errors.length > 0){
             this.setState({ errors })
             return false;
         }else {return true;}
@@ -83,48 +66,23 @@ export default class Register extends Component {
     onSubmit(e) {
         e.preventDefault();
         const { email, password, firstName, lastName, username, gender,city } = this.state;
-        if(this.validateForm(email,password,firstName,lastName,username,gender,city)){
-            // po co ten notify?
-            notify.show("Connecting...",'success');
-
-            //nie widzę żebyś gdzieś używał tej zmiennej
-            const { isRegistered } = this.props;
-
-            const url = 'http://e3a5e7a8.ngrok.io/users';
-            this.setState({ errors: [] });
-            const params = {
-                "user":{
-                    "email":email,
-                    "password":password
-                }
+        const params = {
+            "user":{
+                "email":email,
+                "password":password
             }
-            api.createUser(params);
-
-        // powinno to wyglądać tak:
-        // api.createUser(params)
-            //.then( () => this.setState({ created: true }))
+        }
+        if(this.validateForm(params)){
+            // const url = 'http://e3a5e7a8.ngrok.io/users';
+            this.setState({ errors: [] });
+            notify.show("success",'success');
+            api.createUser(params)
+           //  .then( () => this.setState({ created: true }))
             // .catch( err => notify.show(err,'error'))
-
+        }
         // i np jak created jest na true to chowaj formularz a wyświetlaj komunikat w divie czy tam w czym "Udało się zarejestrować"
         // i pod tym button "Przejdź do logowania" który przekieruje na strone z logowaniem
         // lub coś w ten deseń 
-        
-        
-        // to niżej do wyjebania
-        //     fetch(url,
-        //         {
-        //             method: 'POST',
-        //             body: JSON.stringify(params),
-        //             mode: 'cors',
-        //             headers: {
-        //                 'Content-Type': 'application/json'
-        //             }
-        //         }
-        //     )
-        //     .then(res => console.log(res))
-        //     .then( () => isRegistered(email))
-        // }else {notify.show("Cannot connect to server",'error');
-        }
     }
     
     render() {
@@ -176,7 +134,7 @@ export default class Register extends Component {
                                 <div className="uk-inline">
                                     <div className="uk-button-mini uk-form-select">
                                     Age:
-                                    {// ostyluj też tą rozwijaną liste selecta, scrollbar itp bo wygląda to chujowo
+                                    {
                                     }
                                     <select>
                                         {options}
@@ -194,12 +152,4 @@ export default class Register extends Component {
             </div>
         )
     }
-
-
-    // jak nie używsz to do wyjebania
-
-                                /* <div className="error uk-margin">
-                                <label></label>
-                               // {this.state.errors.map((error, i) => (<p key={i}>{error}</p>))}
-                            </div> */
 }
