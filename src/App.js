@@ -1,36 +1,19 @@
-import React, { Component } from "react";
-import Register from "./components/Register";
-import Login from "./components/Login";
+import React from "react";
+import Login from "./containers/Login";
+import Dashboard from './containers/Dashboard';
 import Notifications from "react-notify-toast";
+import { Switch, Route } from 'react-router-dom';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isRegistered: false,
-      username: "",
-    };
-    this.setAuth = this.setAuth.bind(this);
-  }
-
-  setAuth(email) {
-    this.setState({ username: email, isRegistered: true });
-  }
-
-  render() {
-    const { isRegistered, username } = this.state;
-    
-    return (
-      <div>
-        <Notifications />
-        <Register />
-      </div>
-      // <div>
-      //   <Notifications></Notifications>
-      //   {isRegistered ? <Login></Login>: <Register username={username} isRegistered={this.setAuth}></Register>  }
-      // </div>
-    );
-  }
+const App = () => {
+  return(
+    <div>
+      <Notifications />
+      <Switch>
+        <Route exact path="/" component={Login}></Route>
+        <Route path="/dashboard" component={Dashboard}></Route>
+      </Switch>
+    </div>
+  )
 }
 
 export default App;

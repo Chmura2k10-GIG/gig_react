@@ -2,7 +2,7 @@ import axios from "axios";
 import Notifications, { notify } from "react-notify-toast";
 import { networkInterfaces } from "os";
 
-const url = "http://localhost:8080/";
+const url = "http://localhost:3000/";
 
 class Api {
   constructor() {
@@ -18,7 +18,7 @@ class Api {
     };
   }
 
-  postLogin(userData) {
+  setToken(userData) {
     this.setHeaders();
     this.api.post("users/login", userData).then(res => console.log);
   }
