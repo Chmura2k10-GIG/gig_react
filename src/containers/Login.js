@@ -13,7 +13,8 @@ class Login extends Component {
       email: "",
       password: "",
       errors: [],
-      isLogged:false
+      isLogged:false,
+      redirect:false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,6 +24,10 @@ class Login extends Component {
   onChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  onRegisterClick=()=>{
+    this.setState({redirect:true})
   }
 
   onSubmit(e) {
@@ -58,10 +63,15 @@ class Login extends Component {
 
   render() {    
     const { email, password, isLogged } = this.state;
+    const {redirect} = this.state;
+
     if(isLogged){
       return(
         <Redirect to="/dashboard"/>
       )
+    }
+    if(redirect){
+      return <Redirect to="../components/Register.js"/>;
     }
     return (
       <div>
@@ -118,7 +128,7 @@ class Login extends Component {
               <br /><br />
               <hr />
               <div className="uk-margin">
-                <button className="uk-button uk-button-default" type="submit">
+                <button className="uk-button uk-button-default" onClick={this.onRegisterClick}>
                   REGISTER
                 </button><br />
                 Are you new here?
