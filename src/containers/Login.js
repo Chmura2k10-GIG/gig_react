@@ -36,22 +36,19 @@ class Login extends Component {
     };
 
 
-    // if (email && password) {
-    //   if (!this.validateEmail(email)) {
-    //     notify.show("Invalid email", "error");
-    //     errors.push("invalid email");
-    //   } else {
-    //     this.setState({ errors: [] });
-    //   }
-    // }
-    api.setToken(data)
-      .then(res => {
-        setToken(res.data["auth_token"])
-        this.setState({ isLogged: true })
-      });
-
-
-      //wrzuć sobie to spowrotem w te ify
+    if (email && password) {
+      if (!this.validateEmail(email)) {
+        notify.show("Invalid email", "error");
+        errors.push("invalid email");
+      } else {
+        this.setState({ errors: [] });
+        api.setToken(data)
+        .then(res => {
+          setToken(res.data["auth_token"])
+          this.setState({ isLogged: true })
+        });
+      }
+    }
   }
 
   validateEmail(email) {
@@ -59,9 +56,7 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
-  render() {
-    // brakuje jakiegoś info typu "Nie masz konta, kliknij button aby zarejestrować się lub whatever"
-    
+  render() {    
     const { email, password, isLogged } = this.state;
     if(isLogged){
       return(
@@ -119,6 +114,14 @@ class Login extends Component {
                 <button className="uk-button uk-button-default" type="submit">
                   LOGIN
                 </button>
+              </div>
+              <br /><br />
+              <hr />
+              <div className="uk-margin">
+                <button className="uk-button uk-button-default" type="submit">
+                  REGISTER
+                </button><br />
+                Are you new here?
               </div>
             </div>
           </div>
