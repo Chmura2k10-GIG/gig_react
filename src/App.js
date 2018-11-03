@@ -8,7 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       isRegistered: false,
-      username: ""
+      username: "",
     };
     this.setAuth = this.setAuth.bind(this);
   }
@@ -19,15 +19,14 @@ class App extends Component {
 
   render() {
     const { isRegistered, username } = this.state;
+    
     return (
       <div>
         <Notifications />
         <Register />
-
       </div>
       // <div>
       //   <Notifications></Notifications>
-
       //   {isRegistered ? <Login></Login>: <Register username={username} isRegistered={this.setAuth}></Register>  }
       // </div>
     );

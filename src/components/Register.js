@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import logo from './../assets/images/GigLogoOrange.png';
 import Notifications, { notify } from 'react-notify-toast';
 import api from "../api";
-import { isNull } from 'util';
+import {Redirect} from 'react-router-dom';
+import { timingSafeEqual } from 'crypto';
 
 export default class Register extends Component {
     constructor(props) {
@@ -12,12 +13,13 @@ export default class Register extends Component {
             email: '',
             password: '',
             gender: null,
-            created: 'false',
+            created: false,
             firstName: '',
             lastName: '',
             city: '',
             age: '16',
-            errors: []
+            errors: [],
+            redirect: false
         };
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -25,7 +27,6 @@ export default class Register extends Component {
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
-        console.log(this.state);
     }
 
     validateEmail(email) {
@@ -35,30 +36,27 @@ export default class Register extends Component {
 
     validateForm(params){
         let errors  = [];
-
         Object.keys(params.user).map(key => {
                 if(!params.user[key]){
                     errors.push(`invalid ${key}`);
-                    console.log('rest');
-                }else if(key == "email")
+                }else if(key === "email")
                 {
                     if(!this.validateEmail(params.user[key]))
                     {
                         errors.push(`invalid ${key}`);
-                        console.log('email');
                     }
-                }else if(key == "password" || key == "username")
+                }else if(key === "password" || key === "username")
                 {
                     if(params.user[key].length < 8)
                     {
                         errors.push(`${key} is too short(minimum 8 signs)`);
-                        console.log('password and username');
                     }
                 }
         });
         
         if(errors.length > 0){
             this.setState({ errors })
+            notify.show(errors + ', ','error');
             return false;
         }else {return true;}
     }
@@ -77,25 +75,46 @@ export default class Register extends Component {
             this.setState({ errors: [] });
             notify.show("success",'success');
             api.createUser(params)
-           //  .then( () => this.setState({ created: true }))
+            this.setState({created:true});
+            // .then( () => this.setState({ created: true }))
             // .catch( err => notify.show(err,'error'))
         }
-        // i np jak created jest na true to chowaj formularz a wyświetlaj komunikat w divie czy tam w czym "Udało się zarejestrować"
-        // i pod tym button "Przejdź do logowania" który przekieruje na strone z logowaniem
-        // lub coś w ten deseń 
+    }
+
+    onLoginClick=()=>
+    {
+        console.log("click")
+        this.setState({redirect:true})
     }
     
     render() {
         const options = [];
+        const {redirect} = this.state;
+
         for (let i = 16; i <= 100; i++) {
             options.push(<option key={i}>{i}</option>)
         }
+
+        if(redirect)
+            {
+            return <Redirect to='/Login' />;
+            }
         
         return (
             <div className="whole-screen">
                 <div className="uk-container uk-container-expand uk-margin-bottom">
                     <img className="uk-align-left logo-img" src={logo} alt="" />
                 </div>
+                {this.state.created?
+                <div className="uk-container uk-container-expand uk-vertical-align-middle">
+                    <div className="uk-margin">
+                        <span>Login succesful!</span>
+                        <br />
+                        <button className="uk-button uk-button-default" onClick={this.onLoginClick}>Go to Login screen</button>
+                        <br />
+                    </div>
+                </div>
+             :
                 <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit}>
                     <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">Register</h1>
                     <hr></hr>
@@ -149,6 +168,7 @@ export default class Register extends Component {
                         </div>
                     </div>
                 </form>
+                }
             </div>
         )
     }

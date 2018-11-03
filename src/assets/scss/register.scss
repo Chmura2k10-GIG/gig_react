@@ -39,6 +39,18 @@
       border-radius: 5px;
     }
 
+    .uk-button-default {
+      color: black;
+      border: solid 1px orange;
+      font-weight: bold;
+      background-color: orange;
+      min-height: 10px;
+      min-height: 20px;
+      min-width: 200px;
+      max-width: 300px;
+      border-radius: 50px;
+    }
+
     .uk-container-expand .uk-vertical-align-middle {
       .uk-button-default {
         color: black;
@@ -52,10 +64,6 @@
         border-radius: 50px;
       }
 
-      .uk-button-default:focus {
-        outline:0;
-        border:none;
-      }
       label {
         margin-right: 20px;
         margin: 10px;
@@ -90,6 +98,4 @@
         outline:0;
         border:none;
       }
-
-
     }
