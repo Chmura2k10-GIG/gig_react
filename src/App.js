@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React from "react";
+import Login from "./containers/Login";
+import Dashboard from './containers/Dashboard';
+import Notifications from "react-notify-toast";
+import { Switch, Route } from 'react-router-dom';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="uk-grid">
-        <div className="uk-width-1-2">UIKIT grid example</div>
-        <div className="uk-width-1-2">UIKIT grid example</div>
-      </div>
-    );
-  }
+const App = () => {
+  return(
+    <div>
+      <Notifications />
+      <Switch>
+        <Route exact path="/" component={Login}></Route>
+        <Route path="/dashboard" component={Dashboard}></Route>
+      </Switch>
+    </div>
+  )
 }
 
 export default App;
