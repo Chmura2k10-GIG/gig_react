@@ -13,7 +13,8 @@ class Login extends Component {
       email: "",
       password: "",
       errors: [],
-      isLogged:false
+      isLogged:false,
+      redirect:false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -23,6 +24,10 @@ class Login extends Component {
   onChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  onRegisterClick=()=>{
+    this.setState({redirect:true})
   }
 
   onSubmit(e) {
@@ -36,22 +41,19 @@ class Login extends Component {
     };
 
 
-    // if (email && password) {
-    //   if (!this.validateEmail(email)) {
-    //     notify.show("Invalid email", "error");
-    //     errors.push("invalid email");
-    //   } else {
-    //     this.setState({ errors: [] });
-    //   }
-    // }
-    api.setToken(data)
-      .then(res => {
-        setToken(res.data["auth_token"])
-        this.setState({ isLogged: true })
-      });
-
-
-      //wrzuć sobie to spowrotem w te ify
+    if (email && password) {
+      if (!this.validateEmail(email)) {
+        notify.show("Invalid email", "error");
+        errors.push("invalid email");
+      } else {
+        this.setState({ errors: [] });
+        api.setToken(data)
+        .then(res => {
+          setToken(res.data["auth_token"])
+          this.setState({ isLogged: true })
+        });
+      }
+    }
   }
 
   validateEmail(email) {
@@ -59,14 +61,17 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
-  render() {
-    // brakuje jakiegoś info typu "Nie masz konta, kliknij button aby zarejestrować się lub whatever"
-    
+  render() {    
     const { email, password, isLogged } = this.state;
+    const {redirect} = this.state;
+
     if(isLogged){
       return(
         <Redirect to="/dashboard"/>
       )
+    }
+    if(redirect){
+      return <Redirect to="../components/Register.js"/>;
     }
     return (
       <div>
@@ -119,6 +124,14 @@ class Login extends Component {
                 <button className="uk-button uk-button-default" type="submit">
                   LOGIN
                 </button>
+              </div>
+              <br /><br />
+              <hr />
+              <div className="uk-margin">
+                <button className="uk-button uk-button-default" onClick={this.onRegisterClick}>
+                  REGISTER
+                </button><br />
+                Are you new here?
               </div>
             </div>
           </div>
