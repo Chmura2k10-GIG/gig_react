@@ -83,6 +83,7 @@ export default class Register extends Component {
 
     onLoginClick=()=>
     {
+        console.log("click")
         this.setState({redirect:true})
     }
     

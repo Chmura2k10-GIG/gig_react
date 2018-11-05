@@ -1,5 +1,6 @@
 import React from "react";
 import Login from "./containers/Login";
+import Register from "./containers/Register";
 import Dashboard from './containers/Dashboard';
 import Notifications from "react-notify-toast";
 import { Switch, Route } from 'react-router-dom';
@@ -9,8 +10,12 @@ const App = () => {
     <div>
       <Notifications />
       <Switch>
-        <Route exact path="/" component={Login}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route>
+        {/* <Route exact path="/" component={Login}></Route>
+        <Route path="/dashboard" component={Dashboard}></Route> */}
+
+        <Route exact path="/" component={Register}></Route>
+        <Route path="/Login" component={Login}></Route>
+
       </Switch>
     </div>
   )
