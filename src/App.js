@@ -5,6 +5,7 @@ import UserProfile from "./containers/UserProfile";
 import Dashboard from './containers/Dashboard';
 import Notifications from "react-notify-toast";
 import { Switch, Route } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 
 const App = () => {
   return(

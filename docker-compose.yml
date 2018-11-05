@@ -2,8 +2,8 @@ version: '3.7'
 
 services:
 
-  sample-app:
-    container_name: sample-app
+  app:
+    container_name: gig_react
     build:
       context: .
       dockerfile: Dockerfile

@@ -1,0 +1,50 @@
+.custom-nav-bar{
+  width:100%;
+  min-height:50px;
+  max-height:70px;
+  border-bottom: solid 2px black;
+  box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 1);
+  .uk-margin{
+      display: flex;
+      background: orange;
+    .uk-navbar-left{
+        margin-top:-10px;
+      }
+      .uk-logo{
+      width: 75px;
+      height: 75px;
+      margin: 0;
+      padding:0;
+      }
+      .uk-navbar-nav{
+          font-weight: 1000;
+          margin:0;
+          padding:0;
+          a{
+            color:#3b3635;
+            margin-top:5px;
+          }
+          a:hover{
+            color:black;
+          }
+          a.visited{
+            color:black;
+          }
+          .my-avatar{
+              width: 50px;
+              margin-right: 10px;
+              height: 50px;
+              min-height: 50px;
+              border-radius:50%;
+          }
+          .my-notifications{
+              width: 50px;
+              height: 50px;
+              margin-right: 10px;
+              min-height: 50px;
+              border-radius:50%;
+              font-size:5px;
+          }
+      }
+  }
+}
