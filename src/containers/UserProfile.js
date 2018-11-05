@@ -4,6 +4,7 @@ import Notifications, { notify } from 'react-notify-toast';
 import api from "../api";
 import {Redirect} from 'react-router-dom';
 import { timingSafeEqual } from 'crypto';
+import avatar from '.././assets/images/User_Avatar2.png';
 
 export default class Register extends Component {
     constructor(props) {
@@ -11,12 +12,11 @@ export default class Register extends Component {
         this.state = {
           isMyProfile:true,
           isEditing:false,
-          sideBarOpen:false
+          sideBarOpen:false,
         };
     }
 
     handleSidebarToggle=()=>{
-      console.log("toggle");
       this.setState((prevState) => {
         return {sideBarOpen: !prevState.sideBarOpen};
       });
@@ -55,42 +55,66 @@ export default class Register extends Component {
         }
     }
 
-    render() {
-      let sidebar;
-
-      if(this.state.sideBarOpen)
-      {
-        
+    showSidebar(){
+      let sidebarClass;
+      if(!this.state.sideBarOpen){
+        sidebarClass = 'custom-sidebar ';
+      }else{
+        sidebarClass = 'custom-sidebar open';
+      }
+        return(<nav className={sidebarClass}>
+        <div className="uk-container uk-container-expand uk-vertical-align-middle">
+          <ul className="user-names">
+            <li><img className={this.state.isEditing?"uk-navbar-item uk-logo my-profile-picture custom-edit-avatar":"uk-navbar-item uk-logo my-profile-picture"} src={avatar}/></li>
+            <li className={this.state.isEditing?"custom-edit-name":""}>First Name</li>
+            <li className={this.state.isEditing?"custom-edit-name":""}>Last Name</li>
+            <li className={this.state.isEditing?"custom-edit-name":""}>Band Name</li>
+            </ul>
+            <h1 className="my-instruments">My Instruments</h1>
+           <ul className="uk-list custom-list uk-margin-bottom">
+                <li className="custom-instrument-element">Piano</li>
+                <li className="custom-instrument-element">Piano</li>
+                <li className="custom-instrument-element">Piano</li>
+            </ul>
+            {this.CheckIfMyProfile()}
+        </div>
+        </nav>)
       }
 
+    render() {
+      let sidebar;
       return (
         <div className="whole-user-screen">
+                    {this.showSidebar()}
+
             { <NavigationBar sidebarOpenHandler={this.handleSidebarToggle}/> }
               <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
-              <div className="custom-sidebar">
-
-              </div>
-
-                <div className ="custom-general">
+                <div className ={this.state.sideBarOpen ?"custom-general detailed-user-info-small":"custom-general"}>
                     <div className="detailed-user-info">
                       <h1>About Me</h1>
                       <hr></hr>
-                      <textarea class="uk-textarea detailed-user-info" rows="5" disabled={!this.state.isEditing} placeholder="Textarea">IM FROM LODZ I AM PLAYING GUITAR SINCE 8, ALSO I AM TAKING PIANO LESSONS FOR 4YEARS NOW.</textarea>
+                      <textarea className={this.state.isEditing ?"uk-textarea detailed-user-info custom-edit":
+                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing} placeholder="Textarea">
+                       IM FROM LODZ I AM PLAYING GUITAR SINCE 8, ALSO I AM TAKING PIANO LESSONS FOR 4YEARS NOW.
+                      </textarea>
                     </div>
                     <div className="detailed-user-info">
                       <h1>Favourite Artists</h1>
                       <hr></hr>
-                      <textarea class="uk-textarea detailed-user-info" rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My favourite band is Black Sabbath</textarea>
+                      <textarea className={this.state.isEditing ?"uk-textarea detailed-user-info custom-edit":
+                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My favourite band is Black Sabbath</textarea>
                     </div>
                     <div className="detailed-user-info">
                       <h1>My Plans</h1>
                       <hr></hr>
-                      <textarea className="uk-textarea detailed-user-info" rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
+                      <textarea className={this.state.isEditing ?"uk-textarea detailed-user-info custom-edit":
+                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
                     </div>
                     <div className="detailed-user-info">
                       <h1>My Experience</h1>
                       <hr></hr>
-                      <textarea className="uk-textarea detailed-user-info" rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
+                      <textarea className={this.state.isEditing ?"uk-textarea detailed-user-info custom-edit":
+                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
                     </div>
                   </div>
                 </div>
@@ -98,27 +122,3 @@ export default class Register extends Component {
         )
     }
 }
-
-
-
-
-{/*   <div id="offcanvas-overlay" uk-offcanvas="overlay: true">
-                    <div className="uk-offcanvas-bar">
-                    <div className="uk-container uk-container-expand uk-vertical-align-middle">
-                        <ul className="user-names">
-                          <li><img className="uk-navbar-item uk-logo my-profile-picture" src={avatar}/></li>
-                          <li>First Name</li>
-                          <li>Last Name</li>
-                          <li>Band Name</li>
-                          </ul>
-                          <h1 className="my-instruments">My Instruments:</h1>
-                          <ul className="uk-list uk-list-striped uk-margin-bottom">
-                              <li>Piano</li>
-                              <li>Guitar</li>
-                              <li>Flute</li>
-                              <li>Piano</li>
-                              <li>{this.CheckIfMyProfile()}</li>
-                          </ul>
-                      </div>
-                    </div>
-                </div> */}

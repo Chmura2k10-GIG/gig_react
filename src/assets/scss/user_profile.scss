@@ -1,5 +1,6 @@
 .whole-user-screen{
     height: 100%;
+
     hr{
       width:100%;
       margin-bottom:10px;
@@ -13,75 +14,122 @@
         max-height:70px;
         box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 1);
     }
-    .uk-text-center{
-        .custom-general{
-          .detailed-user-info{
-            margin:10px;
-            border-radius: 15px;
-            background-color: black;
-            box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 1);
-          textarea{
-            color:orange;
-            padding:10px;
-            border:none;
+    .custom-sidebar{
+      background-color:black;
+      box-shadow:-3px 0 10px 0 orange;
+      height: 100%;
+      color:orange;
+      width:35%;
+      position:fixed;
+      background-color:black;
+      z-index: 200;
+      margin:0;
+      padding:0;
+      margin-top:70px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-out;
+
+      .custom-edit-name:hover{
+        box-shadow:-3px 0 10px 0 orange;
+      }
+      .custom-edit-avatar:hover{
+        margin-right:0px;
+        margin-left:0px;
+        box-shadow:-3px 0 10px 0 orange;
+      }
+      .uk-vertical-align-middle{
+        margin:0;
+        .user-names{
+            list-style-type:none;
             margin:0;
-            resize: none;
+            padding:0;
+            background-color:black;
+
+            li{
+              align-items: center;
+              padding-right:0;
+              margin-right:0;
+              .my-profile-picture{
+                border-radius:50%;
+                margin:10px auto;
+                padding:0;
+                width:80px;
+                height:80px;
+            }
+            }
           }
-          h1{
+        .my-instruments{
+            font-size:15px;
+            font-weight: 1000;
             color:orange;
-            font-weight:1000;
-            font-size:20px;
-            margin-bottom:10px;
-          }
         }
+        .custom-instrument-element{
+          color:orange;
+          vertical-align:middle;
+          min-width: 80px;
+          max-width: 100px;
+          max-height:30px;
+          min-height:25px;
+          padding:0;
+          margin:10px auto;
+          font-weight:1000;
+          font-size:15px;
+          border-radius:15%;
+          box-shadow:0 0 10px 0 orange;
+          cursor:default;
+        }
+        .message-button{
+          background-color: orange;
+          color:black;
+          min-width: 100px;
+          max-width: 160px;
+          font-size:10px;
+          padding:0;
+          margin:0;
+          border:none;
+          box-shadow:0 0 10px 0 orange;
+        }
+      }
+      
     }
+      .custom-sidebar.open{
+        transform: translateX(0);
+      }
+
+    .uk-text-center{
+      .custom-general{
+        .detailed-user-info{
+          margin:10px;
+          border-radius: 15px;
+          background-color: black;
+          margin-bottom:20px;
+          box-shadow: 0px 3px 10px 1px rgba(0, 0, 0, 1);
+        textarea{
+          color:orange;
+          padding:10px;
+          border:none;
+          margin:0;
+          resize: none;
+        }
+        h1{
+          color:orange;
+          font-weight:1000;
+          font-size:20px;
+          margin-bottom:10px;
+        }
+        .custom-edit:hover{
+          box-shadow:-3px 0 10px 0 orange;
+        }
+      }
+      
+    }
+  }
 }
-// .uk-offcanvas-container{
-//     .my-padding-right{
-//       width:65%;
-//       right: 0;
-//       position:fixed;
-//     }
-// }
-// .uk-offcanvas-slide{
-//     color:orange;
-//     width:35%;
-//     margin:0;
-//     padding:0;
-//     margin-top:70px;
-//     background-color:black;
-//     box-shadow:-3px 0 10px 0 orange;
-//     overflow: auto;
-//         .uk-vertical-align-middle{
-//             margin:0;
-//             padding:0;
-//             .user-names{
-//                 list-style-type:none;
-//                 margin:0;
-//                 padding:0 0 0 0;
-//             }
-//             .my-profile-picture{
-//                 border-radius:50%;
-//                 margin-top:10px;
-//                 margin-bottom:10px;
-//             }
-//             .my-instruments{
-//                 font-size:20px;
-//                 font-weight: 20px;
-//                 color:orange;
-//             }
-//             .message-button{
-//                 background-color: orange;
-//                 color:black;
-//                 min-width: 80px;
-//                 max-width: 160px;
-//                 font-size:10px;
-//                 padding:0;
-//                 margin:0;
-//                 margin-bottom:70px;
-//                 border:none;
-//                 box-shadow:0 0 10px 0 orange;
-//             }
-//         }
-//     }
-   }
+
+.detailed-user-info-small{
+  width:65%;
+  right:0;
+  height:90%;
+  position:fixed;
+  overflow-y: scroll;
+}
