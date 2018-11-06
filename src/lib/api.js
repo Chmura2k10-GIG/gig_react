@@ -20,7 +20,7 @@ class Api {
 
   setToken(userData) {
     this.setHeaders();
-    this.api.post("users/login", userData).then(res => console.log);
+    return this.api.post("user_token", userData).then(res => console.log);
   }
 
   createUser(userData) {
