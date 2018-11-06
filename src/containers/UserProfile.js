@@ -6,6 +6,7 @@ import {Redirect} from 'react-router-dom';
 import { timingSafeEqual } from 'crypto';
 import avatar from '.././assets/images/User_Avatar2.png';
 
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +38,7 @@ export default class Register extends Component {
       console.log("OPENING CONVERSATION TOOL");
       console.log(this.state);
     };
-
+    
     CheckIfMyProfile(){
       let { isMyProfile,isEditing } = this.state;
         if(!isMyProfile){
@@ -56,6 +57,7 @@ export default class Register extends Component {
     }
 
     showSidebar(){
+      let options = [1,2,3];
       let sidebarClass;
       if(!this.state.sideBarOpen){
         sidebarClass = 'custom-sidebar ';
@@ -69,12 +71,15 @@ export default class Register extends Component {
             <li className={this.state.isEditing?"custom-edit-name":""}>First Name</li>
             <li className={this.state.isEditing?"custom-edit-name":""}>Last Name</li>
             <li className={this.state.isEditing?"custom-edit-name":""}>Band Name</li>
+            <li className={this.state.isEditing?"custom-edit-name":""}>Email</li>
+            <li className={this.state.isEditing?"custom-edit-name":""}>City</li>
             </ul>
-            <h1 className="my-instruments">My Instruments</h1>
+            <h1 className="my-instruments">Instruments</h1>
            <ul className="uk-list custom-list uk-margin-bottom">
                 <li className="custom-instrument-element">Piano</li>
                 <li className="custom-instrument-element">Piano</li>
                 <li className="custom-instrument-element">Piano</li>
+                <li><div className="uk-button-mini uk-form-select" style={this.state.isEditing?{} : {display:'none'}}><select>{options}</select></div></li>
             </ul>
             {this.CheckIfMyProfile()}
         </div>

@@ -38,7 +38,8 @@
         box-shadow:-3px 0 10px 0 orange;
       }
       .uk-vertical-align-middle{
-        margin:0;
+        height:80%;
+        overflow-y: scroll;
         .user-names{
             list-style-type:none;
             margin:0;
@@ -111,6 +112,10 @@
           margin:0;
           resize: none;
         }
+        input{
+          color: orange;
+          border:solid 2px orange;
+        }
         h1{
           color:orange;
           font-weight:1000;
@@ -124,6 +129,27 @@
       
     }
   }
+  .uk-form-select select{
+    background-color: orange;
+    font-weight: bold;
+    border-radius: 50%;
+    width:50px;
+    height:50px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    appearance: none;
+    background-image:url('../images/Plus.png');
+    text-align: center;
+   }
+   .uk-form-select{
+    text-align: center;
+   }
+
+   .uk-form-select select:focus{
+    outline:0;
+    border:none;
+   }
 }
 
 .detailed-user-info-small{
