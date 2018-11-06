@@ -19,27 +19,16 @@ class Dashboard extends Component {
     console.log(this.props)
     return (
       <div className="whole-dashboard-screen">
-        <NavigationBar/>
+        <NavigationBar />
         <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
           <div className="custom-general">
             <div className="detailed-dashboard-info">
-              <h1>About Me</h1>
+              <h1>These people might be looking for you!</h1>
               <hr></hr>
             </div>
             <div className="detailed-dashboard-info">
-              <h1>Favourite Artists</h1>
+              <h1>Artist with same music taste</h1>
               <hr></hr>
-            
-            </div>
-            <div className="detailed-dashboard-info">
-              <h1>My Plans</h1>
-              <hr></hr>
-
-            </div>
-            <div className="detailed-dashboard-info">
-              <h1>My Experience</h1>
-              <hr></hr>
-
             </div>
           </div>
         </div>
