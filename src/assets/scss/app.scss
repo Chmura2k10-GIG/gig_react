@@ -1,7 +1,13 @@
 @import "register.scss";
+@import "dashboard.scss";
 
 body{
     background-color:#3b3635;
     color: orange;
-    height: 100vh;
+    height: 100%;
+}
+html{
+    background-color:#3b3635;
+    color: orange;
+    height: 100%;
 }

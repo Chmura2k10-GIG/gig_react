@@ -1,12 +1,48 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import NavigationBar from '../NavigatorBar';
+import avatar from '.././assets/images/User_Avatar2.png';
+
 
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMyProfile: true,
+      isEditing: false,
+      sideBarOpen: false
+    };
+  }
+
+
   render() {
     console.log(this.props)
     return (
-      <div>
-        TEST
+      <div className="whole-dashboard-screen">
+        <NavigationBar/>
+        <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
+          <div className="custom-general">
+            <div className="detailed-dashboard-info">
+              <h1>About Me</h1>
+              <hr></hr>
+            </div>
+            <div className="detailed-dashboard-info">
+              <h1>Favourite Artists</h1>
+              <hr></hr>
+            
+            </div>
+            <div className="detailed-dashboard-info">
+              <h1>My Plans</h1>
+              <hr></hr>
+
+            </div>
+            <div className="detailed-dashboard-info">
+              <h1>My Experience</h1>
+              <hr></hr>
+
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -14,7 +50,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   return {
-    user:state.user
+    user: state.user
   }
 }
 
