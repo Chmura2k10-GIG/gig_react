@@ -120,6 +120,9 @@
       "react-app"
     ]
   },
+  "optionalDependencies": {
+    "fsevents": "*"
+  },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
     "jest": "^23.6.0"
