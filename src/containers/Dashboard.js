@@ -20,6 +20,7 @@ class Dashboard extends Component {
     return (
       <div className="whole-dashboard-screen">
         <NavigationBar />
+        <h1>Dashboard</h1>
         <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
           <div className="custom-general">
             <div className="detailed-dashboard-info">
