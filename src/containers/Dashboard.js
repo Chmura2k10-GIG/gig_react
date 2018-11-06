@@ -19,7 +19,7 @@ class Dashboard extends Component {
   render() {
     console.log(this.props)
     let nearbyUsers = {
-      "penises": "penises"
+      "test": "test"
     }
     api.getUserListByCities("Lodz");
 
@@ -32,7 +32,7 @@ class Dashboard extends Component {
             <div className="detailed-dashboard-info">
               <h1>These people might be looking for you!</h1>
               <hr></hr>
-              <text>{nearbyUsers.penises}</text>
+              <text>{nearbyUsers.test}</text>
             </div>
             <div className="detailed-dashboard-info">
               <h1>Artist with same music taste</h1>

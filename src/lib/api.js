@@ -20,6 +20,7 @@ class Api {
 
   setToken(userData) {
     this.setHeaders();
+    console.log(userData)
     return this.api.post("user_token", userData).then(res => console.log);
   }
 
@@ -37,6 +38,10 @@ class Api {
         notify.show(error.request,'error');
       }
     });
+  }
+
+  getUserListByCities(city){
+    
   }
 }
 
