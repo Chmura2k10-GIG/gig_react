@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import logo from './../assets/images/GigLogoOrange.png';
+import Notifications, { notify } from 'react-notify-toast';
+import api from "../api";
+import {Redirect} from 'react-router-dom';
+import { timingSafeEqual } from 'crypto';
+
 export default class Register extends Component {
     constructor(props) {
         super(props);
@@ -7,95 +13,107 @@ export default class Register extends Component {
             email: '',
             password: '',
             gender: null,
-            accepted: 'false',
+            created: false,
             firstName: '',
             lastName: '',
             city: '',
             age: '16',
-            errors: []
+            errors: [],
+            redirect: false
         };
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
     }
-
 
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
     validateEmail(email) {
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
+    validateForm(params){
+        let errors  = [];
+        Object.keys(params.user).map(key => {
+                if(!params.user[key]){
+                    errors.push(`invalid ${key}`);
+                }else if(key === "email")
+                {
+                    if(!this.validateEmail(params.user[key]))
+                    {
+                        errors.push(`invalid ${key}`);
+                    }
+                }else if(key === "password" || key === "username")
+                {
+                    if(params.user[key].length < 8)
+                    {
+                        errors.push(`${key} is too short(minimum 8 signs)`);
+                    }
+                }
+        });
+        
+        if(errors.length > 0){
+            this.setState({ errors })
+            notify.show(errors + ', ','error');
+            return false;
+        }else {return true;}
+    }
+    
     onSubmit(e) {
         e.preventDefault();
-        const { email, password, firstName, lastName, username, gender } = this.state;
-        const { isRegistered } = this.props;
-        let errors  = [];
-        const url = 'http://e3a5e7a8.ngrok.io/users';
-
-        if (email && password) {
-
-            // if (!this.validateEmail(email)) {
-            //     console.log("invalid email");
-            //     errors.push("invalid email");
-            // }
-            // if (password.length < 8) {
-            //     console.log("password is too short");
-            //     errors.push("password is too short");
-            // }
-            // if (username.length < 8) {
-            //     console.log("username is too short");
-            //     errors.push("username is too short");
-            // }
-        }
-        else {
-            // console.log("you need to fill all fields");
-            // errors.push("you need to fill all fields");
-        }
-        if (!gender) {
-            // console.log("you need to choose gender");
-            // errors.push("you need to choose gender");
-        }
-            
-        if(errors.length > 1){
-            this.setState({ errors })
-        }else{
-            this.setState({ errors: [] });
-            const params = {
-                "user":{
-                    "email":email,
-                    "password":password
-                }
+        const { email, password, firstName, lastName, username, gender,city } = this.state;
+        const params = {
+            "user":{
+                "email":email,
+                "password":password
             }
-                fetch(url,
-                    {
-                        method: 'POST',
-                        body: JSON.stringify(params),
-                        mode: 'cors',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                )
-                    .then(res => console.log(res))
-                    .then( () => isRegistered(email))
         }
-        
+        if(this.validateForm(params)){
+            // const url = 'http://e3a5e7a8.ngrok.io/users';
+            this.setState({ errors: [] });
+            notify.show("success",'success');
+            api.createUser(params)
+            this.setState({created:true});
+            // .then( () => this.setState({ created: true }))
+            // .catch( err => notify.show(err,'error'))
+        }
     }
 
+    onLoginClick=()=>
+    {
+        this.setState({redirect:true})
+    }
+    
     render() {
         const options = [];
+        const {redirect} = this.state;
+
         for (let i = 16; i <= 100; i++) {
             options.push(<option key={i}>{i}</option>)
         }
-        console.log(this.state);
+
+        if(redirect)
+            {
+            return <Redirect to='/Login' />;
+            }
+        
         return (
             <div className="whole-screen">
                 <div className="uk-container uk-container-expand uk-margin-bottom">
-                    <img className="uk-align-left logo-img" src={require('./../assets/images/GigLogoOrange.png')} alt="" />
+                    <img className="uk-align-left logo-img" src={logo} alt="" />
                 </div>
+                {this.state.created?
+                <div className="uk-container uk-container-expand uk-vertical-align-middle">
+                    <div className="uk-margin">
+                        <span>Login succesful!</span>
+                        <br />
+                        <button className="uk-button uk-button-default" onClick={this.onLoginClick}>Go to Login screen</button>
+                        <br />
+                    </div>
+                </div>
+             :
                 <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit}>
                     <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">Register</h1>
                     <hr></hr>
@@ -126,29 +144,30 @@ export default class Register extends Component {
                             </div>
                         </div>
                         <div className="uk-container uk-container-expand uk-vertical-align-middle">
-                            {/* <div className="uk-margin" onChange={this.setGender.bind(this)}>
+                            <div className="uk-margin" onChange={this.onChange.bind(this)}>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Male" /> Male</label>
                                 <label><input className="uk-radio" type="radio" name="gender" value="Female" /> Female</label>
-                            </div> */}
+                            </div>
                             <div className="uk-margin">
-                                <div className=".uk-button-mini uk-form-select" data-uk-form-select>
-                                    <span>Age: </span>
+                                <div className="uk-inline">
+                                    <div className="uk-button-mini uk-form-select">
+                                    Age:
+                                    {
+                                    }
                                     <select>
                                         {options}
                                     </select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="uk-margin">
                                 <button className="uk-button uk-button-default" type="submit">REGISTER</button>
                                 <br />
                             </div>
-                            <div className="error uk-margin">
-                                <label>{console.log(this.state.errors)}</label>
-                                {this.state.errors.map((error, i) => (<p key={i}>{error}</p>))}
-                            </div>
                         </div>
                     </div>
                 </form>
+                }
             </div>
         )
     }

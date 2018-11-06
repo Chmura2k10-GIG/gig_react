@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import NavigationBar from '../NavigatorBar';
-import avatar from '.././assets/images/User_Avatar2.png';
+import api from "../api";
+
 
 
 class Dashboard extends Component {
@@ -17,6 +18,11 @@ class Dashboard extends Component {
 
   render() {
     console.log(this.props)
+    let nearbyUsers = {
+      "penises": "penises"
+    }
+    api.getUserListByCities("Lodz");
+
     return (
       <div className="whole-dashboard-screen">
         <NavigationBar />
@@ -26,6 +32,7 @@ class Dashboard extends Component {
             <div className="detailed-dashboard-info">
               <h1>These people might be looking for you!</h1>
               <hr></hr>
+              <text>{nearbyUsers.penises}</text>
             </div>
             <div className="detailed-dashboard-info">
               <h1>Artist with same music taste</h1>
