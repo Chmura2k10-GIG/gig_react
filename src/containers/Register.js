@@ -63,11 +63,12 @@ export default class Register extends Component {
     
     onSubmit(e) {
         e.preventDefault();
-        const { email, password, firstName, lastName, username, gender,city } = this.state;
+        const { email, password, username } = this.state;
         const params = {
             "user":{
                 "email":email,
-                "password":password
+                "password":password,
+                "login":username
             }
         }
         if(this.validateForm(params)){

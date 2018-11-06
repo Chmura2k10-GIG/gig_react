@@ -2,7 +2,7 @@ import axios from "axios";
 import Notifications, { notify } from "react-notify-toast";
 import { networkInterfaces } from "os";
 
-const url = "http://localhost:3000/";
+const url = "https://gigapi.herokuapp.com/";
 
 class Api {
   constructor() {
@@ -26,7 +26,7 @@ class Api {
   createUser(userData) {
     let created = this.state;
     this.setHeaders();
-    this.api.post("users", userData)
+    this.api.post("users/create", userData)
     .then(res => {created = true; console.log(created)})
     .catch((error) =>{
       if(error.res)
