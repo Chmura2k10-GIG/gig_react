@@ -71,7 +71,7 @@ class Login extends Component {
       )
     }
     if(redirect){
-      return <Redirect to="../components/Register.js"/>;
+      return <Redirect to=".."/>;
     }
     return (
       <div>
