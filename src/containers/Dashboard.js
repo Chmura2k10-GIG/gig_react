@@ -3,26 +3,47 @@ import { connect } from 'react-redux'
 import NavigationBar from '../NavigatorBar';
 import api from "../api";
 
-
+class User extends Component{
+  render(){
+    return(
+      <div className="user-dashboard">
+      {this.props.login} is nearby to you! City: {this.props.city}
+      </div>
+    )
+  }
+}
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isMyProfile: true,
-      isEditing: false,
-      sideBarOpen: false
+      nearbyUsersWwa: [],
+      nearbyUsersKato: []
     };
   }
 
+  async fetchData() {
+    api.getUserListByCities("Warszawa").then(({ data }) => {
+      this.setState({
+        nearbyUsersWwa: data
+      })
+    })
+    .catch((err)=> {})
+
+    api.getUserListByCities("Katowice").then(({ data }) => {
+      this.setState({
+        nearbyUsersKato: data
+      })
+    })
+    .catch((err)=> {})
+  }
+
+  componentDidMount(){
+    this.fetchData()
+  }
 
   render() {
-    console.log(this.props)
-    let nearbyUsers = {
-      "test": "test"
-    }
-    api.getUserListByCities("Lodz");
-
     return (
       <div className="whole-dashboard-screen">
         <NavigationBar />
@@ -32,11 +53,12 @@ class Dashboard extends Component {
             <div className="detailed-dashboard-info">
               <h1>These people might be looking for you!</h1>
               <hr></hr>
-              <text>{nearbyUsers.test}</text>
+              {this.state.nearbyUsersWwa.map(user => <User login={user.login} city={user.city}/>)}
             </div>
             <div className="detailed-dashboard-info">
               <h1>Artist with same music taste</h1>
               <hr></hr>
+              {this.state.nearbyUsersKato.map(user => <User login={user.login} city={user.city}/>)}
             </div>
           </div>
         </div>

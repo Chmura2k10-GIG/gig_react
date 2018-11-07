@@ -21,7 +21,7 @@ class Api {
   setToken(userData) {
     this.setHeaders();
     console.log(userData)
-    return this.api.post("user_token", userData).then(res => console.log);
+    return this.api.post("user_token", userData);
   }
 
   createUser(userData) {
@@ -41,7 +41,8 @@ class Api {
   }
 
   getUserListByCities(city){
-    
+    this.setHeaders();
+    return this.api.get("users?city=" + city);
   }
 }
 

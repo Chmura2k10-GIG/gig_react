@@ -13,8 +13,8 @@ class Login extends Component {
       email: "",
       password: "",
       errors: [],
-      isLogged:false,
-      redirect:false
+      isLogged: false,
+      redirect: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -26,8 +26,8 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  onRegisterClick=()=>{
-    this.setState({redirect:true})
+  onRegisterClick = () => {
+    this.setState({ redirect: true })
   }
 
   onSubmit(e) {
@@ -36,8 +36,10 @@ class Login extends Component {
     const { setToken } = this.props;
     let { errors } = this.state;
     const data = {
-      email: email,
-      password: password
+      "auth": {
+        "email": email,
+        "password": password
+      }
     };
 
 
@@ -48,10 +50,12 @@ class Login extends Component {
       } else {
         this.setState({ errors: [] });
         api.setToken(data)
-        .then(res => {
-          setToken(res.data["auth_token"])
-          this.setState({ isLogged: true })
-        });
+          .then(res => {
+            setToken(res.data["auth_token"])
+            this.setState({ isLogged: true })
+          }).catch(err => {
+            notify.show("invalid password or email", "error");
+          });
       }
     }
   }
@@ -61,17 +65,17 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
-  render() {    
+  render() {
     const { email, password, isLogged } = this.state;
-    const {redirect} = this.state;
+    const { redirect } = this.state;
 
-    if(isLogged){
-      return(
-        <Redirect to="/dashboard"/>
+    if (isLogged) {
+      return (
+        <Redirect to="/dashboard" />
       )
     }
-    if(redirect){
-      return <Redirect to=".."/>;
+    if (redirect) {
+      return <Redirect to=".." />;
     }
     return (
       <div>
