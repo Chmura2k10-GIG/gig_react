@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import NavigationBar from "../NavigationBar";
 import Notifications, { notify } from "react-notify-toast";
 import api from "../api";
+import { connect } from 'react-redux'
 import { Redirect } from "react-router-dom";
 import { timingSafeEqual } from "crypto";
 import avatar from ".././assets/images/User_Avatar2.png";
+import  { Link } from 'react-router-dom';
+import { clearToken } from '../actions/user';
+
 
 class Instrument extends Component {
   render() {
@@ -12,7 +16,7 @@ class Instrument extends Component {
   }
 }
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -141,6 +145,9 @@ export default class Register extends Component {
             <select />
           </div>
           {this.CheckIfMyProfile()}
+          <button className="uk-button uk-button-default message-button uk-margin-top" onClick={this.props.clearToken}>
+            <Link to="/">LOG OUT</Link>
+          </button>
         </div>
       </nav>
     );
@@ -245,3 +252,6 @@ export default class Register extends Component {
     );
   }
 }
+
+
+export default connect(null, {clearToken})(Register)

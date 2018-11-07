@@ -75,7 +75,7 @@ class Login extends Component {
       )
     }
     if (redirect) {
-      return <Redirect to=".." />;
+      return <Redirect to="/register" />;
     }
     return (
       <div>

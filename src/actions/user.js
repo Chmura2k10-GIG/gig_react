@@ -6,3 +6,10 @@ export function setToken(params){
     payload:params
   }
 }
+
+export function clearToken(){
+  return {
+    type:"CLEAR_TOKEN",
+  }
+
+}
