@@ -20,7 +20,8 @@ class Api {
 
   setToken(userData) {
     this.setHeaders();
-    return this.api.post("user_token", userData).then(res => console.log);
+    console.log(userData)
+    return this.api.post("user_token", userData);
   }
 
   createUser(params){
@@ -31,6 +32,11 @@ class Api {
   getInstruments(){
     this.setHeaders();
     return this.api.get('/instruments');
+  }
+
+  getUserListByCities(city){
+    this.setHeaders();
+    return this.api.get("users?city=" + city);
   }
 }
 
