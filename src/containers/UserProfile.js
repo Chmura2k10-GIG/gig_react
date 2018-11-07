@@ -19,8 +19,18 @@ export default class Register extends Component {
       isMyProfile: true,
       isEditing: false,
       sideBarOpen: false,
-      instruments: []
+      instruments: [],
+      currUser: []
     };
+  }
+
+  componentDidMount(){
+    api.getCurrentUser().then(res => {
+      console.log(res.data)
+      this.setState({
+        currUser: res.data
+      })
+    })
   }
 
   handleSidebarToggle = () => {
@@ -146,11 +156,13 @@ export default class Register extends Component {
   showInstrumets() {}
   render() {
     let sidebar;
+    const currUser = this.state.currUser
+
     return (
       <div className="whole-user-screen">
         {this.showSidebar()}
 
-        {<NavigationBar sidebarOpenHandler={this.handleSidebarToggle} />}
+        {<NavigationBar sidebarOpenHandler={this.handleSidebarToggle} login={currUser.login}/>}
         <div
           className="uk-grid-collapse uk-child-width-expand@s uk-text-center"
           uk-grid

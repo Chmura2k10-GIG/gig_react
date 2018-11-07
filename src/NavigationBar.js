@@ -12,7 +12,7 @@ const NavigationBar = props => (
       <Link to="/dashboard"><img className="uk-navbar-item uk-logo" src={logo} /></Link>
         <ul className="uk-navbar-nav">
           <li>
-            <a onClick={props.sidebarOpenHandler}>NICKNAME</a>
+            <a onClick={props.sidebarOpenHandler}>{props.login}</a>
           </li>
         </ul>
       </div>

@@ -51,7 +51,7 @@ class Login extends Component {
         this.setState({ errors: [] });
         api.setToken(data)
           .then(res => {
-            setToken(res.data["auth_token"])
+            setToken(res.data["jwt"])
             this.setState({ isLogged: true })
           }).catch(err => {
             notify.show("invalid password or email", "error");

@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "../store";
 
 const url = "https://gigapi.herokuapp.com/";
 
@@ -11,9 +12,7 @@ class Api {
   }
 
   setHeaders() {
-    this.api.defaults.headers = {
-      "Content-Type": "application/json"
-    };
+    this.api.defaults.headers.common['authorization'] = `Bearer ${store.getState().user.token}`;
   }
 
   setToken(userData) {
@@ -28,12 +27,17 @@ class Api {
 
   getInstruments(){
     this.setHeaders();
-    return this.api.get('/instruments');
+    return this.api.get('instruments');
   }
 
   getUserListByCities(city){
     this.setHeaders();
     return this.api.get("users?city=" + city);
+  }
+
+  getCurrentUser(){
+    this.setHeaders();
+    return this.api.get("users/current");
   }
 }
 

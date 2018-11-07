@@ -19,7 +19,8 @@ class Dashboard extends Component {
     this.state = {
       isMyProfile: true,
       nearbyUsersWwa: [],
-      nearbyUsersKato: []
+      nearbyUsersKato: [],
+      currUser: []
     };
   }
 
@@ -40,13 +41,21 @@ class Dashboard extends Component {
   }
 
   componentDidMount(){
+    api.getCurrentUser().then(res => {
+      console.log(res.data)
+      this.setState({
+        currUser: res.data
+      })
+    })
     this.fetchData()
   }
 
   render() {
+    const currUser = this.state.currUser
+    console.log(currUser)
     return (
       <div className="whole-dashboard-screen">
-        <NavigationBar />
+        <NavigationBar login={currUser.login}/>
         <h1>Dashboard</h1>
         <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
           <div className="custom-general">
@@ -68,6 +77,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.user)
   return {
     user: state.user
   }
