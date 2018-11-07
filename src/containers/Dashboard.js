@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NavigationBar from '../NavigatorBar';
+import NavigationBar from '../NavigatonBar';
 import api from "../api";
 
 class User extends Component{
