@@ -12,9 +12,9 @@ const App = () => {
     <div>
       <Notifications />
       <Switch>
-        {/* <Route exact path="/" component={Login}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route> */}
-        <Route exact path="/" component={UserProfile}></Route>
+        <Route exact path="/" component={Register}></Route>
+        <Route path="/dashboard" component={Dashboard}></Route>
+        <Route exact path="/userprofile" component={UserProfile}></Route>
         <Route path="/Login" component={Login}></Route>
 
       </Switch>

@@ -73,9 +73,7 @@ export default class Register extends Component {
             }
         }
         if(this.validateForm(params)){
-            // const url = 'http://e3a5e7a8.ngrok.io/users';
             this.setState({ errors: [] });
-            notify.show("success",'success');
             api.createUser(params)
             .then( () => this.setState({ created: true }))
             .catch( err => notify.show(err,'error'))
