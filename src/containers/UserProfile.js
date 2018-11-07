@@ -6,6 +6,15 @@ import {Redirect} from 'react-router-dom';
 import { timingSafeEqual } from 'crypto';
 import avatar from '.././assets/images/User_Avatar2.png';
 
+class Instrument extends Component{
+  render(){
+    return(
+      <div>
+      {this.props.name}
+      </div>
+    )
+  }
+}
 
 export default class Register extends Component {
     constructor(props) {
@@ -14,6 +23,7 @@ export default class Register extends Component {
           isMyProfile:true,
           isEditing:false,
           sideBarOpen:false,
+          instruments:[]
         };
     }
 
@@ -76,16 +86,25 @@ export default class Register extends Component {
             </ul>
             <h1 className="my-instruments">Instruments</h1>
            <ul className="uk-list custom-list uk-margin-bottom">
-                <li className="custom-instrument-element">Piano</li>
-                <li className="custom-instrument-element">Piano</li>
-                <li className="custom-instrument-element">Piano</li>
-                <li><div className="uk-button-mini uk-form-select" style={this.state.isEditing?{} : {display:'none'}}><select>{options}</select></div></li>
+           {this.state.instruments.map(instrument => <Instrument name={instrument.name}/>)}
             </ul>
+            <div className="uk-button-mini uk-form-select" style={this.state.isEditing?{} : {display:'none'}} onClick={this.loadInstruments}>{}<select></select></div>
             {this.CheckIfMyProfile()}
         </div>
         </nav>)
       }
 
+      loadInstruments=()=>{
+        api.getInstruments()
+        .then(({ data }) => {
+          this.setState({instruments:data});
+          console.log(this.state.instruments);
+        })
+      }
+
+      showInstrumets(){
+        
+      }
     render() {
       let sidebar;
       return (
@@ -119,7 +138,7 @@ export default class Register extends Component {
                       <h1>My Experience</h1>
                       <hr></hr>
                       <textarea className={this.state.isEditing ?"uk-textarea detailed-user-info custom-edit":
-                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing} placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
+                       "uk-textarea detailed-user-info"} rows="5" disabled={!this.state.isEditing}  placeholder="Textarea">My plans are PLAYING ON OPENER</textarea>
                     </div>
                   </div>
                 </div>

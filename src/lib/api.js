@@ -23,21 +23,32 @@ class Api {
     this.api.post("users/login", userData).then(res => console.log);
   }
 
-  createUser(userData) {
-    let created = this.state;
+  createUser(params){
     this.setHeaders();
-    this.api.post("users/create", userData)
-    .then(res => {created = true; console.log(created)})
-    .catch((error) =>{
-      if(error.res)
-      {
-        notify.show(error.response,'error');
-      }else if(error.request)
-      {
-        notify.show(error.request,'error');
-      }
-    });
+    return this.api.post('users/create', params);
+  }
+
+  getInstruments(){
+    this.setHeaders();
+    return this.api.get('/instruments');
   }
 }
+
+//   createUser(userData) {
+//     let created = this.state;
+//     this.setHeaders();
+//     this.api.post("users/create", userData)
+//     .then(res => {created = true; console.log(created)})
+//     .catch((error) =>{
+//       if(error.res)
+//       {
+//         notify.show(error.response,'error');
+//       }else if(error.request)
+//       {
+//         notify.show(error.request,'error');
+//       }
+//     });
+//   }
+// }
 
 export default Api;

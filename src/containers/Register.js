@@ -76,9 +76,8 @@ export default class Register extends Component {
             this.setState({ errors: [] });
             notify.show("success",'success');
             api.createUser(params)
-            this.setState({created:true});
-            // .then( () => this.setState({ created: true }))
-            // .catch( err => notify.show(err,'error'))
+            .then( () => this.setState({ created: true }))
+            .catch( err => notify.show(err,'error'))
         }
     }
 
