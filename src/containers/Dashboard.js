@@ -1,25 +1,23 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NavigationBar from '../NavigationBar';
+import NavigationBar from '../components/NavigationBar';
 import api from "../api";
 
-class User extends Component{
-  render(){
-    return(
-      <div className="user-dashboard">
-      {this.props.login} is nearby to you! City: {this.props.city}
-      </div>
-    )
-  }
-}
+// class User extends Component{
+//   render(){
+//     return(
+//       <div className="user-dashboard">
+//       {this.props.login} is nearby to you! City: {this.props.city}
+//       </div>
+//     )
+//   }
+// }
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isMyProfile: true,
-      nearbyUsersWwa: [],
-      nearbyUsersKato: [],
       currUser: []
     };
   }
@@ -42,7 +40,6 @@ class Dashboard extends Component {
 
   componentDidMount(){
     api.getCurrentUser().then(res => {
-      console.log(res.data)
       this.setState({
         currUser: res.data
       })
@@ -51,8 +48,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const currUser = this.state.currUser
-    console.log(currUser)
+    const { currUser } = this.state;
     return (
       <div className="whole-dashboard-screen">
         <NavigationBar login={currUser.login}/>
@@ -62,12 +58,10 @@ class Dashboard extends Component {
             <div className="detailed-dashboard-info">
               <h1>These people might be looking for you!</h1>
               <hr></hr>
-              {this.state.nearbyUsersWwa.map(user => <User login={user.login} city={user.city}/>)}
             </div>
             <div className="detailed-dashboard-info">
               <h1>Artist with same music taste</h1>
               <hr></hr>
-              {this.state.nearbyUsersKato.map(user => <User login={user.login} city={user.city}/>)}
             </div>
           </div>
         </div>
@@ -77,7 +71,6 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.user)
   return {
     user: state.user
   }

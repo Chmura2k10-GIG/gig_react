@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import logo from './../assets/images/GigLogoOrange.png';
-import Notifications, { notify } from 'react-notify-toast';
+import { notify } from 'react-notify-toast';
+import { Redirect } from 'react-router-dom';
 import api from "../api";
-import {Redirect} from 'react-router-dom';
-import { timingSafeEqual } from 'crypto';
+import logo from './../assets/images/GigLogoOrange.png';
 
 export default class Register extends Component {
     constructor(props) {
@@ -82,7 +81,6 @@ export default class Register extends Component {
 
     onLoginClick=()=>
     {
-        console.log("click")
         this.setState({redirect:true})
     }
     

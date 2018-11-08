@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import NavigationBar from "../NavigationBar";
-import Notifications, { notify } from "react-notify-toast";
+import { notify } from "react-notify-toast";
 import api from "../api";
-import { connect } from 'react-redux'
-import { Redirect } from "react-router-dom";
-import { timingSafeEqual } from "crypto";
+import { connect } from 'react-redux';
 import avatar from ".././assets/images/User_Avatar2.png";
 import  { Link } from 'react-router-dom';
 import { clearToken } from '../actions/user';
@@ -30,7 +27,6 @@ class Register extends Component {
 
   componentDidMount(){
     api.getCurrentUser().then(res => {
-      console.log(res.data)
       this.setState({
         currUser: res.data
       })
@@ -52,8 +48,6 @@ class Register extends Component {
     notify.show("New data saved successfully", "success");
   };
   onClickSendMessage = () => {
-    console.log("OPENING CONVERSATION TOOL");
-    console.log(this.state);
   };
 
   CheckIfMyProfile() {
@@ -93,7 +87,6 @@ class Register extends Component {
   }
 
   showSidebar() {
-    let options = [1, 2, 3];
     let sidebarClass;
     if (!this.state.sideBarOpen) {
       sidebarClass = "custom-sidebar ";
@@ -112,6 +105,7 @@ class Register extends Component {
                     : "uk-navbar-item uk-logo my-profile-picture"
                 }
                 src={avatar}
+                alt="nav-logo"
               />
             </li>
             <li className={this.state.isEditing ? "custom-edit-name" : ""}>
@@ -156,7 +150,6 @@ class Register extends Component {
   loadInstruments = () => {
     api.getInstruments().then(({ data }) => {
       this.setState({ instruments: data });
-      console.log(this.state.instruments);
     });
   };
 
@@ -169,7 +162,7 @@ class Register extends Component {
       <div className="whole-user-screen">
         {this.showSidebar()}
 
-        {<NavigationBar sidebarOpenHandler={this.handleSidebarToggle} login={currUser.login}/>}
+        {/* {<NavigationBar sidebarOpenHandler={this.handleSidebarToggle} login={currUser.login}/>} */}
         <div
           className="uk-grid-collapse uk-child-width-expand@s uk-text-center"
           uk-grid
@@ -254,4 +247,4 @@ class Register extends Component {
 }
 
 
-export default connect(null, {clearToken})(Register)
+export default connect(null, { clearToken })(Register)

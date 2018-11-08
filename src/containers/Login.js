@@ -26,10 +26,6 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  onRegisterClick = () => {
-    this.setState({ redirect: true })
-  }
-
   onSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
@@ -121,21 +117,19 @@ class Login extends Component {
             </div>
           </div>
           <hr />
-          <br />
           <div className="uk-container uk-container-expand uk-vertical-align-middle ">
             <div className="uk-container uk-container-expand uk-vertical-align-middle">
               <div className="uk-margin">
-                <button className="uk-button uk-button-default" type="submit">
+                <button className="uk-button uk-button-default uk-margin-top" type="submit">
                   LOGIN
                 </button>
               </div>
-              <br /><br />
               <hr />
-              <div className="uk-margin">
-                <button className="uk-button uk-button-default" onClick={this.onRegisterClick}>
+              <div className="uk-margin-top">
+                <button className="uk-button uk-button-default uk-margin-bottom" onClick={() => this.setState({ redirect: true })}>
                   REGISTER
-                </button><br />
-                Are you new here?
+                </button>
+                <span className="uk-display-block">Are you new here?</span>
               </div>
             </div>
           </div>
