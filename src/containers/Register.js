@@ -3,12 +3,15 @@ import { notify } from 'react-notify-toast';
 import { Redirect } from 'react-router-dom';
 import api from "../api";
 import logo from './../assets/images/GigLogoOrange.png';
+import LoginSuccessComponent from '../components/LoginSuccessComponent';
+import SelectComponent from '../components/SelectComponent';
+import RadioButtonComponent from '../components/RadioButtonComponent';
 
 export default class Register extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: '',
+            login: '',
             email: '',
             password: '',
             gender: null,
@@ -17,11 +20,11 @@ export default class Register extends Component {
             lastName: '',
             city: '',
             age: '16',
-            errors: [],
             redirect: false
         };
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.handleSelect = this.handleSelect.bind(this)
     }
 
     onChange(e) {
@@ -34,137 +37,121 @@ export default class Register extends Component {
     }
 
     validateForm(params){
-        let errors  = [];
-        Object.keys(params.user).map(key => {
-                if(!params.user[key]){
-                    errors.push(`invalid ${key}`);
-                }else if(key === "email")
-                {
-                    if(!this.validateEmail(params.user[key]))
-                    {
-                        errors.push(`invalid ${key}`);
-                    }
-                }else if(key === "password" || key === "username")
-                {
-                    if(params.user[key].length < 8)
-                    {
-                        errors.push(`${key} is too short(minimum 8 signs)`);
-                    }
-                }
-        });
-        
-        if(errors.length > 0){
-            this.setState({ errors })
-            notify.show(errors + ', ','error');
+        const { email, password, login, firstName, lastName, gender } = this.state;
+                
+        if (login.length < 3 || firstName.length < 3 || lastName.length < 3){
+            notify.show('Login, first name, last name needs to be 3 signs length', 'error')
+            return false
+        }
+
+        if(this.validateEmail(email) === false){
+            notify.show('Invalid email...', 'error');
+            return false
+        }
+
+        if (password.length < 8) {
+            notify.show('Password needs to be 8 signs length', 'error')
+            return false
+        }
+
+        if(gender === null){
+            notify.show('Select your gender...', 'error');
             return false;
-        }else {return true;}
+        }
+
+        return true;
     }
     
     onSubmit(e) {
         e.preventDefault();
-        const { email, password, username, city } = this.state;
+        const { email, password, login, city } = this.state;
         const params = {
             "user":{
                 "email":email,
                 "password":password,
-                "login":username,
+                "login":login,
                 "city":city
             }
         }
-        if(this.validateForm(params)){
-            this.setState({ errors: [] });
+        if(this.validateForm()){
             api.createUser(params)
-            .then( () => this.setState({ created: true }))
-            .catch( err => notify.show(err,'error'))
+                .then(() => this.setState({ created: true }))
+                .catch(err => notify.show(err,'error'))
         }
     }
 
-    onLoginClick=()=>
-    {
-        this.setState({redirect:true})
+    handleSelect(i){
+        this.refs.select.onClick(i);
     }
-    
+
     render() {
         const options = [];
-        const {redirect} = this.state;
-
+        const { redirect, created, login, firstName, lastName, city, age, email, password } = this.state;
         for (let i = 16; i <= 100; i++) {
-            options.push(<option key={i}>{i}</option>)
+            options.push(<div className="uk-margin-small-bottom" onClick={ e => this.handleSelect(i)} key={i}>{i}</div>)
         }
 
-        if(redirect)
-            {
+        if(redirect){
             return <Redirect to='/Login' />;
-            }
+        }
         
         return (
-            <div className="whole-screen">
-                <div className="uk-container uk-container-expand uk-margin-bottom">
-                    <img className="uk-align-left logo-img" src={logo} alt="" />
+            <div>
+                <div className="uk-container">
+                    <img className="app-logo" src={logo} alt="" />
                 </div>
-                {this.state.created?
-                <div className="uk-container uk-container-expand uk-vertical-align-middle">
-                    <div className="uk-margin">
-                        <span>Login succesful!</span>
-                        <br />
-                        <button className="uk-button uk-button-default" onClick={this.onLoginClick}>Go to Login screen</button>
-                        <br />
-                    </div>
-                </div>
-             :
-                <form className="uk-panel uk-panel-box uk-form" onSubmit={this.onSubmit}>
-                    <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">Register</h1>
-                    <hr></hr>
-                    <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-                        <div className="uk-margin uk-margin-bottom uk-margin-top">
-                            <div className="uk-inline">
-                                <input className="uk-input" type="text" placeholder="Username" name="username" value={this.state.username} onChange={e => this.onChange(e)} />
-                            </div>
-                            <div className="uk-inline">
-                                <input className="uk-input" type="text" placeholder="E-mail" name="email" value={this.state.email} onChange={e => this.onChange(e)} />
-                            </div>
-                            <div className="uk-inline">
-                                <input className="uk-input" type="password" placeholder="Password" name="password" value={this.state.password} onChange={e => this.onChange(e)} />
-                            </div>
-                        </div>
-                    </div>
-                    <hr></hr>
-                    <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-                        <div className="uk-margin uk-margin-top">
-                            <div className="uk-inline">
-                                <input className="uk-input" type="text" placeholder="First Name" name="firstName" value={this.state.firstName} onChange={e => this.onChange(e)} />
-                            </div>
-                            <div className="uk-inline">
-                                <input className="uk-input" type="text" placeholder="Last Name" name="lastName" value={this.state.lastName} onChange={e => this.onChange(e)} />
-                            </div>
-                            <div className="uk-inline">
-                                <input className="uk-input" type="text" placeholder="City" name="city" value={this.state.city} onChange={e => this.onChange(e)} />
-                            </div>
-                        </div>
-                        <div className="uk-container uk-container-expand uk-vertical-align-middle">
-                            <div className="uk-margin" onChange={this.onChange.bind(this)}>
-                                <label><input className="uk-radio" type="radio" name="gender" value="Male" /> Male</label>
-                                <label><input className="uk-radio" type="radio" name="gender" value="Female" /> Female</label>
-                            </div>
-                            <div className="uk-margin">
+                {created ?
+                    <LoginSuccessComponent redirectToLogin={() => this.setState({ redirect: true })} />
+                :
+                    <form onSubmit={this.onSubmit}>
+                        <h1 className="text--orange uk-text-center">Register</h1>
+                        <hr></hr>
+                        <div className="uk-container">
+                            <div className="uk-flex uk-flex-center uk-flex-wrap uk-margin-bottom uk-margin-top">
                                 <div className="uk-inline">
-                                    <div className="uk-button-mini uk-form-select">
-                                    Age:
-                                    {
-                                    }
-                                    <select>
-                                        {options}
-                                    </select>
-                                    </div>
+                                    <input className="uk-input" type="text" placeholder="Login" name="login" value={login} onChange={e => this.onChange(e)} />
+                                </div>
+                                <div className="uk-inline uk-margin-top">
+                                    <input className="uk-input" type="text" placeholder="E-mail" name="email" value={email} onChange={e => this.onChange(e)} />
+                                </div>
+                                <div className="uk-inline uk-margin-top">
+                                    <input className="uk-input" type="password" placeholder="Password" name="password" value={password} onChange={e => this.onChange(e)} />
                                 </div>
                             </div>
-                            <div className="uk-margin">
-                                <button className="uk-button uk-button-default" type="submit">REGISTER</button>
-                                <br />
+                        </div>
+                        <hr></hr>
+                        <div className="uk-container">
+                            <div className="uk-flex uk-flex-center uk-flex-wrap">
+                                <div className="uk-inline uk-margin-top">
+                                    <input className="uk-input" type="text" placeholder="First name" name="firstName" value={firstName} onChange={e => this.onChange(e)} />
+                                </div>
+                                <div className="uk-inline uk-margin-top">
+                                    <input className="uk-input" type="text" placeholder="Last name" name="lastName" value={lastName} onChange={e => this.onChange(e)} />
+                                </div>
+                                <div className="uk-inline uk-margin-top">
+                                    <input className="uk-input" type="text" placeholder="City" name="city" value={city} onChange={e => this.onChange(e)} />
+                                </div>
+                            </div>
+                            <div className="uk-container uk-margin-top">
+                                <div className="uk-flex uk-flex-wrap uk-flex-center" onChange={this.onChange.bind(this)}>
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="male" text="Male" />
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="female" text="Female" />
+                                </div>
+                                <div className="uk-flex uk-flex-wrap uk-flex-center uk-margin-top">
+                                    <SelectComponent 
+                                        ref="select" 
+                                        selectName="Age" 
+                                        options={options} 
+                                        defaultValue={age} 
+                                        setValueInParent={age => this.setState({ age })}
+                                    />
+                                </div>
+                                <div className="uk-flex uk-flex-wrap uk-flex-center uk-margin-bottom uk-margin-top">
+                                    <button className="custom-button" type="submit">REGISTER</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
                 }
             </div>
         )

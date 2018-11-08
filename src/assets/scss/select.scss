@@ -1,0 +1,20 @@
+  .custom-select {
+    transition: .4s ease;
+    &__header {
+      border-bottom: 3px solid orange;
+      padding: 5px 0px;
+      min-width: 200px;
+      margin-bottom: 20px;
+    }
+    &__body {
+      max-height: 210px;
+      max-width: 245px;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+
+    &__arrow{
+      transition: .4s ease;
+      max-width:30px;
+    }
+  }

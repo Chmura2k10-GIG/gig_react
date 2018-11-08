@@ -11,7 +11,7 @@ const App = () => {
     <div>
       <Notifications />
       <Switch>
-        <Route exact path="/" component={Dashboard}></Route>
+        <Route exact path="/" component={Register}></Route>
         {/* <Route path="/register" component={Register}></Route> */}
         {/* <Route path="/dashboard" component={Dashboard}></Route> */}
         {/* <Route exact path="/profile" component={UserProfile}></Route> */}
