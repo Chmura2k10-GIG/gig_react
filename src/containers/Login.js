@@ -38,20 +38,19 @@ class Login extends Component {
       }
     };
 
-
     if (email && password) {
-      if (!this.validateEmail(email)) {
-        notify.show("Invalid email", "error");
-        errors.push("invalid email");
-      } else {
-        this.setState({ errors: [] });
-        api.setToken(data)
-          .then(res => {
-            setToken(res.data["jwt"])
-            this.setState({ isLogged: true })
-          }).catch(err => {
-            notify.show("invalid password or email", "error");
-          });
+      if (this.validateEmail(email)) {
+          api.setToken(data)
+            .then(res => {
+              setToken(res.data["jwt"])
+              this.setState({ isLogged: true })
+            })
+            .catch(err => {
+              notify.show("invalid password or email", "error");
+            });
+        } 
+        else {
+          notify.show("Invalid email", "error");
       }
     }
   }
@@ -75,9 +74,9 @@ class Login extends Component {
     }
     return (
       <div>
-        <div className="uk-container uk-container-expand">
+        <div className="uk-container">
           <img
-            className="uk-align-left logo-img"
+            className="app-logo"
             src={logo}
             alt=""
           />
@@ -86,13 +85,11 @@ class Login extends Component {
           className="uk-panel uk-panel-box uk-form"
           onSubmit={this.onSubmit}
         >
-          <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">
-            Login
-          </h1>
+          <h1 className="text--orange uk-text-center">Login</h1>
           <hr />
-          <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-            <div className="uk-margin uk-margin-bottom uk-margin-top">
-              <div className="uk-inline">
+          <div className="uk-container">
+            <div className="uk-flex uk-flex-center uk-flex-wrap">
+              <div className="uk-inline uk-margin-bottom uk-margin-top">
                 <input
                   className="uk-input"
                   name="email"
@@ -103,7 +100,7 @@ class Login extends Component {
                   placeholder="E-mail"
                 />
               </div>
-              <div className="uk-inline">
+              <div className="uk-inline uk-margin-bottom">
                 <input
                   className="uk-input"
                   name="password"
@@ -117,20 +114,18 @@ class Login extends Component {
             </div>
           </div>
           <hr />
-          <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-            <div className="uk-container uk-container-expand uk-vertical-align-middle">
-              <div className="uk-margin">
-                <button className="uk-button uk-button-default uk-margin-top" type="submit">
-                  LOGIN
-                </button>
-              </div>
-              <hr />
-              <div className="uk-margin-top">
-                <button className="uk-button uk-button-default uk-margin-bottom" onClick={() => this.setState({ redirect: true })}>
-                  REGISTER
-                </button>
-                <span className="uk-display-block">Are you new here?</span>
-              </div>
+          <div className="uk-container">
+            <div className="uk-margin-top uk-flex uk-flex-center uk-margin-bottom">
+              <button className="custom-button" type="submit">
+                LOGIN
+              </button>
+            </div>
+            <hr />
+            <div className="uk-margin-top uk-flex uk-flex-middle uk-flex-wrap uk-flex-column uk-margin-bottom">
+              <span className="uk-margin-top uk-text-bold uk-display-block">Are you new here?</span>
+              <button className="custom-button uk-margin-top" onClick={() => this.setState({ redirect: true })}>
+                REGISTER
+              </button>
             </div>
           </div>
         </form>

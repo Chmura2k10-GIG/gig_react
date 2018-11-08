@@ -1,17 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NavigationBar from '../components/NavigationBar';
+import NavbarComponent from '../components/NavbarComponent';
+import SliderComponent from '../components/SliderComponent';
 import api from "../api";
 
-// class User extends Component{
-//   render(){
-//     return(
-//       <div className="user-dashboard">
-//       {this.props.login} is nearby to you! City: {this.props.city}
-//       </div>
-//     )
-//   }
-// }
 
 class Dashboard extends Component {
   constructor(props) {
@@ -39,31 +31,21 @@ class Dashboard extends Component {
   }
 
   componentDidMount(){
-    api.getCurrentUser().then(res => {
-      this.setState({
-        currUser: res.data
-      })
-    })
-    this.fetchData()
+    // api.getCurrentUser().then(res => {
+    //   this.setState({
+    //     currUser: res.data
+    //   })
+    // })
+    // this.fetchData()
   }
 
   render() {
     const { currUser } = this.state;
     return (
-      <div className="whole-dashboard-screen">
-        <NavigationBar login={currUser.login}/>
-        <h1>Dashboard</h1>
-        <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
-          <div className="custom-general">
-            <div className="detailed-dashboard-info">
-              <h1>These people might be looking for you!</h1>
-              <hr></hr>
-            </div>
-            <div className="detailed-dashboard-info">
-              <h1>Artist with same music taste</h1>
-              <hr></hr>
-            </div>
-          </div>
+      <div>
+        <NavbarComponent login="test"/>
+        <div style={{"marginTop":"60px"}} className="uk-flex uk-flex-center uk-flex-wrap">
+          <SliderComponent />
         </div>
       </div>
     )

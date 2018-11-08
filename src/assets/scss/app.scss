@@ -2,22 +2,37 @@
 @import "text.scss";
 @import "select.scss";
 @import "button.scss";
-
-
+@import "navbar.scss";
+@import "icon.scss";
+@import "slider.scss";
 body {
   background-color: #3b3635;
   color: orange;
   height: 100%;
+  overflow-x: hidden;
 }
 
 html {
   background-color: #3b3635;
   color: orange;
   height: 100%;
+  overflow-x: hidden;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+  .main-content {
+    overflow-y: scroll;
+  }
 }
 
 .app-logo {
   max-width: 120px;
+}
+
+.avatar {
+  max-width: 40px;
+  border-radius: 10px;
 }
 
 hr {
@@ -32,9 +47,16 @@ hr {
   display: none;
 }
 
-.rotate{
-  transform:rotateX(180deg);
+.rotate {
   transition: .4s ease;
+  transform: rotateX(180deg);
+}
+
+.rotate-left {
+  transform: rotate(90deg);
+}
+.rotate-right {
+  transform: rotate(-90deg);
 }
 
 ::-webkit-scrollbar-track {
@@ -51,4 +73,8 @@ hr {
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: orange;
+}
+
+.main-content {
+  overflow-y: scroll;
 }

@@ -97,9 +97,7 @@ export default class Register extends Component {
         
         return (
             <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between" style={{"minHeight":"300px"}}>
-                <div className="uk-container">
-                    <img className="app-logo" src={logo} alt="" />
-                </div>
+                <img style={{"marginLeft":"15px"}} className="app-logo" src={logo} alt="" />
                 {created ?
                     <LoginSuccessComponent redirectToLogin={() => this.setState({ redirect: true })} />
                 :
