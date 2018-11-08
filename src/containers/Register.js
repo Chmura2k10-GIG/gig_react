@@ -96,7 +96,7 @@ export default class Register extends Component {
         }
         
         return (
-            <div>
+            <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between" style={{"minHeight":"300px"}}>
                 <div className="uk-container">
                     <img className="app-logo" src={logo} alt="" />
                 </div>
