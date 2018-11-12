@@ -12,6 +12,9 @@ const SidebarComponent = props => {
         <Link className="uk-margin-top" to="/profile">
           <span className="uk-text-bold text--medium">Mój profil</span>
         </Link>
+        <Link className="uk-margin-top" to="/dashboard">
+          <span className="uk-text-bold text--medium">Dashboard</span>
+        </Link>
         <Link className="uk-margin-top" to="/profile">
           <span className="uk-text-bold text--medium">Wiadomości</span>
         </Link>

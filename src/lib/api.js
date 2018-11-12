@@ -30,6 +30,11 @@ class Api {
     return this.api.get('instruments');
   }
 
+  getUserInstruments(id){
+    this.setHeaders();
+    return this.api.get(`users/${id}/instruments`)
+  }
+
   getUserListByCities(city){
     this.setHeaders();
     return this.api.get("users?city=" + city);
