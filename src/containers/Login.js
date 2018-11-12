@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { notify } from "react-notify-toast";
-import api from "../api";
 import logo from '../assets/images/GigLogoOrange.png';
-import { connect } from 'react-redux'
-import { setToken } from '../actions/user'
-import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { setUser } from '../actions/user';
+import { Redirect } from 'react-router-dom';
+import Spinner from 'react-spinkit';
 
 class Login extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class Login extends Component {
       email: "",
       password: "",
       errors: [],
-      isLogged: false,
-      redirect: false
+      redirect: false,
+      isFetchingData:false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -29,8 +29,7 @@ class Login extends Component {
   onSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-    const { setToken } = this.props;
-    let { errors } = this.state;
+    const { setUser } = this.props;
     const data = {
       "auth": {
         "email": email,
@@ -40,14 +39,9 @@ class Login extends Component {
 
     if (email && password) {
       if (this.validateEmail(email)) {
-          api.setToken(data)
-            .then(res => {
-              setToken(res.data["jwt"])
-              this.setState({ isLogged: true })
-            })
-            .catch(err => {
-              notify.show("invalid password or email", "error");
-            });
+          this.setState({ isFetchingData: true }, () => {
+            setUser(data)
+          })
         } 
         else {
           notify.show("Invalid email", "error");
@@ -61,10 +55,10 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, isLogged } = this.state;
-    const { redirect } = this.state;
+    const { email, password, redirect, isFetchingData } = this.state;
+    const { user } = this.props;
 
-    if (isLogged) {
+    if (Object.keys(user).length > 0) {
       return (
         <Redirect to="/dashboard" />
       )
@@ -81,59 +75,69 @@ class Login extends Component {
             alt=""
           />
         </div>
-        <form
-          className="uk-panel uk-panel-box uk-form"
-          onSubmit={this.onSubmit}
-        >
-          <h1 className="text--orange uk-text-center">Login</h1>
-          <hr />
-          <div className="uk-container">
-            <div className="uk-flex uk-flex-center uk-flex-wrap">
-              <div className="uk-inline uk-margin-bottom uk-margin-top">
-                <input
-                  className="uk-input"
-                  name="email"
-                  type="text"
-                  value={email}
-                  required={true}
-                  onChange={e => this.onChange(e)}
-                  placeholder="E-mail"
-                />
+        {
+          isFetchingData ?
+            <Spinner name="circle" color="orange" />
+          :
+            <form
+              className="uk-panel uk-panel-box uk-form"
+              onSubmit={this.onSubmit}
+            >
+              <h1 className="text--orange uk-text-center">Login</h1>
+              <hr />
+              <div className="uk-container">
+                <div className="uk-flex uk-flex-center uk-flex-wrap">
+                  <div className="uk-inline uk-margin-bottom uk-margin-top">
+                    <input
+                      className="uk-input"
+                      name="email"
+                      type="text"
+                      value={email}
+                      required={true}
+                      onChange={e => this.onChange(e)}
+                      placeholder="E-mail"
+                    />
+                  </div>
+                  <div className="uk-inline uk-margin-bottom">
+                    <input
+                      className="uk-input"
+                      name="password"
+                      type="password"
+                      value={password}
+                      required={true}
+                      onChange={e => this.onChange(e)}
+                      placeholder="Hasło"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="uk-inline uk-margin-bottom">
-                <input
-                  className="uk-input"
-                  name="password"
-                  type="password"
-                  value={password}
-                  required={true}
-                  onChange={e => this.onChange(e)}
-                  placeholder="Password"
-                />
+              <hr />
+              <div className="uk-container">
+                <div className="uk-margin-top uk-flex uk-flex-center uk-margin-bottom">
+                  <button className="custom-button" type="submit">
+                    Zaloguj się
+              </button>
+                </div>
+                <hr />
+                <div className="uk-margin-top uk-flex uk-flex-middle uk-flex-wrap uk-flex-column uk-margin-bottom">
+                  <span className="uk-margin-top uk-text-bold uk-display-block">Nie masz konta?</span>
+                  <button className="custom-button uk-margin-top" onClick={() => this.setState({ redirect: true })}>
+                    Zarejestruj się
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          <hr />
-          <div className="uk-container">
-            <div className="uk-margin-top uk-flex uk-flex-center uk-margin-bottom">
-              <button className="custom-button" type="submit">
-                LOGIN
-              </button>
-            </div>
-            <hr />
-            <div className="uk-margin-top uk-flex uk-flex-middle uk-flex-wrap uk-flex-column uk-margin-bottom">
-              <span className="uk-margin-top uk-text-bold uk-display-block">Are you new here?</span>
-              <button className="custom-button uk-margin-top" onClick={() => this.setState({ redirect: true })}>
-                REGISTER
-              </button>
-            </div>
-          </div>
-        </form>
+            </form>
+        }
       </div>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user:state.user.current
+  }
+}
 
 
-export default connect(null, { setToken })(Login)
+export default connect(mapStateToProps, { setUser })(Login)

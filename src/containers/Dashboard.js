@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import NavbarComponent from '../components/NavbarComponent';
-import SliderComponent from '../components/SliderComponent';
+import DashboardSliderComponent from '../components/DashboardSliderComponent';
+import DashboardEventComponent from '../components/DashboardEventComponent';
+import DashboardOptionsComponent from '../components/DashboardOptionsComponent';
+import FooterComponent from '../components/FooterComponent';
 import api from "../api";
 
 
@@ -9,44 +13,40 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMyProfile: true,
-      currUser: []
+      nearUsers:null,
+      showUsers:true
     };
   }
 
-  async fetchData() {
-    api.getUserListByCities("Warszawa").then(({ data }) => {
-      this.setState({
-        nearbyUsersWwa: data
-      })
-    })
-    .catch((err)=> {})
-
-    api.getUserListByCities("Katowice").then(({ data }) => {
-      this.setState({
-        nearbyUsersKato: data
-      })
-    })
-    .catch((err)=> {})
-  }
-
   componentDidMount(){
-    // api.getCurrentUser().then(res => {
-    //   this.setState({
-    //     currUser: res.data
-    //   })
-    // })
-    // this.fetchData()
+    const { user } = this.props;
+    api.getUserListByCities(user.current.city)
+      .then(res => this.setState({ nearUsers: res.data }))
   }
 
   render() {
-    const { currUser } = this.state;
+    const { user } = this.props;
+    const { nearUsers, showUsers } = this.state;
+    if(user.token === undefined){
+      return(
+        <Redirect to="/login"/>
+      )
+    }
     return (
-      <div>
-        <NavbarComponent login="test"/>
-        <div style={{"marginTop":"60px"}} className="uk-flex uk-flex-center uk-flex-wrap">
-          <SliderComponent />
+      <div style={nearUsers && nearUsers.length === 0 ? {"height":"100vh"} : null } className="uk-flex uk-flex-between uk-flex-column uk-flex-wrap">
+        <NavbarComponent avatar={user.current.avatar}/>
+        <div style={{"marginTop":"60px", "minHeight":"370px"}} className="uk-flex uk-flex-center uk-flex-wrap">
+          <DashboardOptionsComponent 
+            showUsers={() => this.setState({ showUsers: true })}
+            showEvents={() => this.setState({ showUsers: false })}
+          />
+          {showUsers?
+              <DashboardSliderComponent users={nearUsers} />
+            : 
+            <DashboardEventComponent />
+          }
         </div>
+        <FooterComponent />
       </div>
     )
   }

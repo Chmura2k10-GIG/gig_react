@@ -1,18 +1,20 @@
 input {
   border-radius: 8px !important;
-
+  &:active,&:focus{
+    outline:0;
+  }
 }
 
-.input{
-  &__search{
+.input {
+  &__search {
     border-bottom: 1px solid #000;
-    border-top:none;
-    border-left:none;
-    border-right:none;
-    border-radius:0px !important;
-    background-color:transparent;
-    padding-bottom:5px;
-    color:#000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-radius: 0px !important;
+    background-color: transparent;
+    padding-bottom: 5px;
+    color: #000;
   }
 }
 
@@ -49,10 +51,10 @@ a {
     width: 20px;
     background-color: #3b3635;
     border-radius: 50%;
-    border:2px solid orange;
+    border: 2px solid $app-orange;
   }
   input:checked~.checkmark {
-    background-color: orange;
+    background-color: $app-orange;
   }
   input:checked~.checkmark:after {
     display: block;

@@ -12,7 +12,6 @@ class NavbarComponent extends Component {
     }
   }
 
-
   render(){
     const { searchValue } = this.state;
     return(
@@ -22,7 +21,7 @@ class NavbarComponent extends Component {
             <img className="icon--small uk-margin-left" src={searchIcon} alt="search-icon"/>
             <input onChange={e => this.setState({ searchValue: e.target.value })} className="input__search uk-text-bold uk-margin-small-left" type="text" value={searchValue}/>
             <div style={{"maxWidth":"35px", "maxHeight":"35px"}} className="uk-display-inline-block uk-position-relative">
-              <img style={{"width":"100%"}} className="uk-margin-large-left" src={notificationIcon} alt="notification"/>
+              <img style={{"width":"100%"}} className="uk-margin-left" src={notificationIcon} alt="notification"/>
               <span className="uk-text-bold notification-number">4</span>
             </div>
           </form>

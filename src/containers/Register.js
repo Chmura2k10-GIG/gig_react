@@ -40,22 +40,22 @@ export default class Register extends Component {
         const { email, password, login, firstName, lastName, gender } = this.state;
                 
         if (login.length < 3 || firstName.length < 3 || lastName.length < 3){
-            notify.show('Login, first name, last name needs to be 3 signs length', 'error')
+            notify.show('Login, imię i nazwisko muszą zawierać przynajmniej 3 znaki', 'error')
             return false
         }
 
         if(this.validateEmail(email) === false){
-            notify.show('Invalid email...', 'error');
+            notify.show('Niewłaściwy email...', 'error');
             return false
         }
 
         if (password.length < 8) {
-            notify.show('Password needs to be 8 signs length', 'error')
+            notify.show('Hasło musi się składać z co najmniej 8 znaków', 'error')
             return false
         }
 
         if(gender === null){
-            notify.show('Select your gender...', 'error');
+            notify.show('Wybierz płeć', 'error');
             return false;
         }
 
@@ -102,7 +102,7 @@ export default class Register extends Component {
                     <LoginSuccessComponent redirectToLogin={() => this.setState({ redirect: true })} />
                 :
                     <form onSubmit={this.onSubmit}>
-                        <h1 className="text--orange uk-text-center">Register</h1>
+                        <h1 className="text--orange uk-text-center">Rejestracja</h1>
                         <hr></hr>
                         <div className="uk-container">
                             <div className="uk-flex uk-flex-center uk-flex-wrap uk-margin-bottom uk-margin-top">
@@ -113,7 +113,7 @@ export default class Register extends Component {
                                     <input className="uk-input" type="text" placeholder="E-mail" name="email" value={email} onChange={e => this.onChange(e)} />
                                 </div>
                                 <div className="uk-inline uk-margin-top">
-                                    <input className="uk-input" type="password" placeholder="Password" name="password" value={password} onChange={e => this.onChange(e)} />
+                                    <input className="uk-input" type="password" placeholder="Hasło" name="password" value={password} onChange={e => this.onChange(e)} />
                                 </div>
                             </div>
                         </div>
@@ -121,19 +121,19 @@ export default class Register extends Component {
                         <div className="uk-container">
                             <div className="uk-flex uk-flex-center uk-flex-wrap">
                                 <div className="uk-inline uk-margin-top">
-                                    <input className="uk-input" type="text" placeholder="First name" name="firstName" value={firstName} onChange={e => this.onChange(e)} />
+                                    <input className="uk-input" type="text" placeholder="Imię" name="firstName" value={firstName} onChange={e => this.onChange(e)} />
                                 </div>
                                 <div className="uk-inline uk-margin-top">
-                                    <input className="uk-input" type="text" placeholder="Last name" name="lastName" value={lastName} onChange={e => this.onChange(e)} />
+                                    <input className="uk-input" type="text" placeholder="Nazwisko" name="lastName" value={lastName} onChange={e => this.onChange(e)} />
                                 </div>
                                 <div className="uk-inline uk-margin-top">
-                                    <input className="uk-input" type="text" placeholder="City" name="city" value={city} onChange={e => this.onChange(e)} />
+                                    <input className="uk-input" type="text" placeholder="Miasto" name="city" value={city} onChange={e => this.onChange(e)} />
                                 </div>
                             </div>
                             <div className="uk-container uk-margin-top">
                                 <div className="uk-flex uk-flex-wrap uk-flex-center" onChange={this.onChange.bind(this)}>
-                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="male" text="Male" />
-                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="female" text="Female" />
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="Mężczyzna" text="Male" />
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="Kobieta" text="Female" />
                                 </div>
                                 <div className="uk-flex uk-flex-wrap uk-flex-center uk-margin-top">
                                     <SelectComponent 
@@ -145,7 +145,7 @@ export default class Register extends Component {
                                     />
                                 </div>
                                 <div className="uk-flex uk-flex-wrap uk-flex-center uk-margin-bottom uk-margin-top">
-                                    <button className="custom-button" type="submit">REGISTER</button>
+                                    <button className="custom-button" type="submit">Stwórz konto</button>
                                 </div>
                             </div>
                         </div>
