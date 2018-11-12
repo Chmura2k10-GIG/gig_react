@@ -16,7 +16,7 @@ const DashboardSliderComponent = props =>{
         >
           {users.map((user,key) => {
             return(
-              user.avatar ? <img src={user.avatar} alt="user-avatar" /> : <img src={placeholder} alt="user-placeholder" />
+              user.avatar ? <img key={key} src={user.avatar} alt="user-avatar" /> : <img key={key} src={placeholder} alt="user-placeholder" />
             )
           })}
         </Carousel> 

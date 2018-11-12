@@ -132,13 +132,13 @@ export default class Register extends Component {
                             </div>
                             <div className="uk-container uk-margin-top">
                                 <div className="uk-flex uk-flex-wrap uk-flex-center" onChange={this.onChange.bind(this)}>
-                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="Mężczyzna" text="Male" />
-                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="Kobieta" text="Female" />
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="male" text="Mężczyzna" />
+                                    <RadioButtonComponent classes="custom-radio-button uk-margin-right uk-text-bold" name="gender" value="female" text="Kobieta" />
                                 </div>
                                 <div className="uk-flex uk-flex-wrap uk-flex-center uk-margin-top">
                                     <SelectComponent 
                                         ref="select" 
-                                        selectName="Age" 
+                                        selectName="Wiek" 
                                         options={options} 
                                         defaultValue={age} 
                                         setValueInParent={age => this.setState({ age })}

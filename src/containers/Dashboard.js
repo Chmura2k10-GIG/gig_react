@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { clearToken } from '../actions/user';
 import NavbarComponent from '../components/NavbarComponent';
 import DashboardSliderComponent from '../components/DashboardSliderComponent';
 import DashboardEventComponent from '../components/DashboardEventComponent';
 import DashboardOptionsComponent from '../components/DashboardOptionsComponent';
+import SidebarComponent from '../components/SidebarComponent';
 import FooterComponent from '../components/FooterComponent';
 import api from "../api";
 
@@ -14,7 +16,8 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       nearUsers:null,
-      showUsers:true
+      showUsers:true,
+      showSidebar:false
     };
   }
 
@@ -25,21 +28,22 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { user } = this.props;
-    const { nearUsers, showUsers } = this.state;
-    if(user.token === undefined){
+    const { user, clearToken } = this.props;
+    const { nearUsers, showUsers, showSidebar } = this.state;
+    if(user.token.length === 0){
       return(
-        <Redirect to="/login"/>
+        <Redirect to="/"/>
       )
     }
     return (
       <div style={nearUsers && nearUsers.length === 0 ? {"height":"100vh"} : null } className="uk-flex uk-flex-between uk-flex-column uk-flex-wrap">
-        <NavbarComponent avatar={user.current.avatar}/>
+        <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.current.avatar}/>
         <div style={{"marginTop":"60px", "minHeight":"370px"}} className="uk-flex uk-flex-center uk-flex-wrap">
           <DashboardOptionsComponent 
             showUsers={() => this.setState({ showUsers: true })}
             showEvents={() => this.setState({ showUsers: false })}
           />
+          <SidebarComponent clearToken={clearToken} user={user.current} showSidebar={showSidebar} />
           {showUsers?
               <DashboardSliderComponent users={nearUsers} />
             : 
@@ -58,4 +62,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {})(Dashboard)
+export default connect(mapStateToProps, { clearToken })(Dashboard)
