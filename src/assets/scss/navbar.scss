@@ -1,0 +1,19 @@
+.custom-navbar {
+  position:fixed;
+  top:0;
+  right:0;
+  z-index:9999;
+  left:0;
+  padding: 10px 5px;
+  background-color: orange;
+  span {
+    color: #000;
+  }
+}
+
+.notification-number {
+  position: absolute;
+  color: orange !important;
+  top: 8px;
+  left: 30px;
+}

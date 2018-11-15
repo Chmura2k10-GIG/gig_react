@@ -1,0 +1,30 @@
+.bg {
+  &--orange {
+    background-color: $app-orange;
+  }
+  &--black {
+    background-color: #000;
+  }
+}
+
+.box {
+  &-padding {
+    padding: 5px 10px;
+  }
+  &-border {
+    &-full--small {
+      border: 2px solid $app-orange;
+    }
+    &-right--small {
+      border-right: 2px solid $app-orange;
+    }
+  }
+}
+
+.padding-small-vertical{
+  padding: 10px 0;
+}
+
+.margin-small-vertical{
+  margin: 10px 0;
+}

@@ -1,86 +1,65 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import NavigationBar from '../NavigationBar';
+import { Redirect } from 'react-router-dom'
+import { clearToken } from '../actions/user';
+import NavbarComponent from '../components/NavbarComponent';
+import DashboardSliderComponent from '../components/DashboardSliderComponent';
+import DashboardEventComponent from '../components/DashboardEventComponent';
+import DashboardOptionsComponent from '../components/DashboardOptionsComponent';
+import SidebarComponent from '../components/SidebarComponent';
+import FooterComponent from '../components/FooterComponent';
 import api from "../api";
 
-class User extends Component{
-  render(){
-    return(
-      <div className="user-dashboard">
-      {this.props.login} is nearby to you! City: {this.props.city}
-      </div>
-    )
-  }
-}
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isMyProfile: true,
-      nearbyUsersWwa: [],
-      nearbyUsersKato: [],
-      currUser: []
+      nearUsers:null,
+      showUsers:true,
+      showSidebar:false
     };
   }
 
-  async fetchData() {
-    api.getUserListByCities("Warszawa").then(({ data }) => {
-      this.setState({
-        nearbyUsersWwa: data
-      })
-    })
-    .catch((err)=> {})
-
-    api.getUserListByCities("Katowice").then(({ data }) => {
-      this.setState({
-        nearbyUsersKato: data
-      })
-    })
-    .catch((err)=> {})
-  }
-
   componentDidMount(){
-    api.getCurrentUser().then(res => {
-      console.log(res.data)
-      this.setState({
-        currUser: res.data
-      })
-    })
-    this.fetchData()
+    const { user } = this.props;
+    api.getUserListByCities(user.current.city)
+      .then(res => this.setState({ nearUsers: res.data }))
   }
 
   render() {
-    const currUser = this.state.currUser
-    console.log(currUser)
+    const { user, clearToken } = this.props;
+    const { nearUsers, showUsers, showSidebar } = this.state;
+    if(user.token.length === 0){
+      return(
+        <Redirect to="/"/>
+      )
+    }
     return (
-      <div className="whole-dashboard-screen">
-        <NavigationBar login={currUser.login}/>
-        <h1>Dashboard</h1>
-        <div className="uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
-          <div className="custom-general">
-            <div className="detailed-dashboard-info">
-              <h1>These people might be looking for you!</h1>
-              <hr></hr>
-              {this.state.nearbyUsersWwa.map(user => <User login={user.login} city={user.city}/>)}
-            </div>
-            <div className="detailed-dashboard-info">
-              <h1>Artist with same music taste</h1>
-              <hr></hr>
-              {this.state.nearbyUsersKato.map(user => <User login={user.login} city={user.city}/>)}
-            </div>
-          </div>
+      <div style={nearUsers && nearUsers.length === 0 ? {"height":"100vh"} : null } className="uk-flex uk-flex-between uk-flex-column uk-flex-wrap">
+        <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.current.avatar}/>
+        <div style={{"marginTop":"60px", "minHeight":"370px"}} className="uk-flex uk-flex-center uk-flex-wrap">
+          <DashboardOptionsComponent 
+            showUsers={() => this.setState({ showUsers: true })}
+            showEvents={() => this.setState({ showUsers: false })}
+          />
+          <SidebarComponent clearToken={clearToken} user={user.current} showSidebar={showSidebar} />
+          {showUsers?
+              <DashboardSliderComponent users={nearUsers} />
+            : 
+            <DashboardEventComponent />
+          }
         </div>
+        <FooterComponent />
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state.user)
   return {
     user: state.user
   }
 }
 
-export default connect(mapStateToProps, {})(Dashboard)
+export default connect(mapStateToProps, { clearToken })(Dashboard)
