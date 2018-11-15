@@ -1,8 +1,7 @@
 import axios from "axios";
-import Notifications, { notify } from "react-notify-toast";
-import { networkInterfaces } from "os";
+import store from "../store";
 
-const url = "http://localhost:3000/";
+const url = "https://gigapi.herokuapp.com/";
 
 class Api {
   constructor() {
@@ -13,30 +12,37 @@ class Api {
   }
 
   setHeaders() {
-    this.api.defaults.headers = {
-      "Content-Type": "application/json"
-    };
+    this.api.defaults.headers.common['authorization'] = `Bearer ${store.getState().user.token}`;
   }
 
   setToken(userData) {
     this.setHeaders();
-    this.api.post("users/login", userData).then(res => console.log);
+    return this.api.post("user_token", userData);
   }
 
-  createUser(userData) {
-    let created = this.state;
+  createUser(params){
     this.setHeaders();
-    this.api.post("users", userData)
-    .then(res => {created = true; console.log(created)})
-    .catch((error) =>{
-      if(error.res)
-      {
-        notify.show(error.response,'error');
-      }else if(error.request)
-      {
-        notify.show(error.request,'error');
-      }
-    });
+    return this.api.post('users/create', params);
+  }
+
+  getInstruments(){
+    this.setHeaders();
+    return this.api.get('instruments');
+  }
+
+  getUserInstruments(id){
+    this.setHeaders();
+    return this.api.get(`users/${id}/instruments`)
+  }
+
+  getUserListByCities(city){
+    this.setHeaders();
+    return this.api.get("users?city=" + city);
+  }
+
+  getCurrentUser(){
+    this.setHeaders();
+    return this.api.get("users/current");
   }
 }
 

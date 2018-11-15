@@ -1,0 +1,24 @@
+.slider {
+  min-height: 370px;
+  &__description {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    padding: 10px 15px;
+    background-color: rgba(0, 0, 0, .5);
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 24px;
+  }
+  img {
+    min-height: 490px;
+  }
+}
+
+.slider-control-centerright,
+.slider-control-centerleft,
+.slider-control-bottomcenter{
+  button{
+    display:none !important;
+  }
+}

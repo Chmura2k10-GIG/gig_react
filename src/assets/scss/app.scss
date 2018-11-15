@@ -1,7 +1,114 @@
-@import "register.scss";
+@import "variables.scss";
+@import "input.scss";
+@import "text.scss";
+@import "select.scss";
+@import "button.scss";
+@import "navbar.scss";
+@import "icon.scss";
+@import "slider.scss";
+@import "footer.scss";
+@import "utility.scss";
+@import "sidebar.scss";
 
-body{
-    background-color:#3b3635;
-    color: orange;
-    height: 100vh;
+*{
+  padding:0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: $app-orange;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Josefin Sans', sans-serif
+}
+
+html {
+  background-color: #000;
+  color: $app-orange;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.no-scroll {
+  overflow-y: hidden;
+  .main-content {
+    overflow-y: scroll;
+  }
+}
+
+.app-logo {
+  max-width: 120px;
+}
+
+.avatar {
+  max-width: 40px !important;
+  border-radius: 10px;
+  &--large{
+    max-width:225px !important;
+    min-height:unset !important;
+  }
+  &--rounded{
+    border-radius:50%;
+    object-fit: fill;
+  }
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), $app-orange, rgba(0, 0, 0, 0));
+  width: 80%;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.rotate {
+  transition: .4s ease;
+  transform: rotateX(180deg);
+}
+
+.rotate-left {
+  transform: rotate(90deg);
+}
+
+.rotate-right {
+  transform: rotate(-90deg);
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: $app-orange;
+}
+
+.main-content {
+  overflow-y: scroll;
+}
+
+.sk-circle {
+  width: 33px;
+  height: 70px;
+  position: absolute;
+  left: 43%;
+  bottom: 50%;
+}
+
+a, a:focus, a:active{
+  text-decoration: none;
+  color:$app-orange;
 }

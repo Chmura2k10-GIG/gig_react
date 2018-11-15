@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { notify } from "react-notify-toast";
-import api from "../api";
 import logo from '../assets/images/GigLogoOrange.png';
-import { connect } from 'react-redux'
-import { setToken } from '../actions/user'
-import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { setUser } from '../actions/user';
+import { Redirect } from 'react-router-dom';
+import Spinner from 'react-spinkit';
 
 class Login extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class Login extends Component {
       email: "",
       password: "",
       errors: [],
-      isLogged:false,
-      redirect:false
+      redirect: false,
+      isFetchingData:false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -26,32 +26,25 @@ class Login extends Component {
     this.setState({ [name]: value });
   }
 
-  onRegisterClick=()=>{
-    this.setState({redirect:true})
-  }
-
   onSubmit(e) {
     e.preventDefault();
     const { email, password } = this.state;
-    const { setToken } = this.props;
-    let { errors } = this.state;
+    const { setUser } = this.props;
     const data = {
-      email: email,
-      password: password
+      "auth": {
+        "email": email,
+        "password": password
+      }
     };
 
-
     if (email && password) {
-      if (!this.validateEmail(email)) {
-        notify.show("Invalid email", "error");
-        errors.push("invalid email");
-      } else {
-        this.setState({ errors: [] });
-        api.setToken(data)
-        .then(res => {
-          setToken(res.data["auth_token"])
-          this.setState({ isLogged: true })
-        });
+      if (this.validateEmail(email)) {
+          this.setState({ isFetchingData: true }, () => {
+            setUser(data)
+          })
+        } 
+        else {
+          notify.show("Invalid email", "error");
       }
     }
   }
@@ -61,86 +54,90 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
-  render() {    
-    const { email, password, isLogged } = this.state;
-    const {redirect} = this.state;
+  render() {
+    const { email, password, redirect, isFetchingData } = this.state;
+    const { user } = this.props;
 
-    if(isLogged){
-      return(
-        <Redirect to="/dashboard"/>
+    if (Object.keys(user).length > 0) {
+      return (
+        <Redirect to="/dashboard" />
       )
     }
-    if(redirect){
-      return <Redirect to="../components/Register.js"/>;
+    if (redirect) {
+      return <Redirect to="/register" />;
     }
     return (
       <div>
-        <div className="uk-container uk-container-expand">
+        <div className="uk-container">
           <img
-            className="uk-align-left logo-img"
+            className="app-logo"
             src={logo}
             alt=""
           />
         </div>
-        <form
-          className="uk-panel uk-panel-box uk-form"
-          onSubmit={this.onSubmit}
-        >
-          <h1 className="uk-container uk-container-expand uk-vertical-align-middle uk-heading">
-            Login
-          </h1>
-          <hr />
-          <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-            <div className="uk-margin uk-margin-bottom uk-margin-top">
-              <div className="uk-inline">
-                <input
-                  className="uk-input"
-                  name="email"
-                  type="text"
-                  value={email}
-                  required={true}
-                  onChange={e => this.onChange(e)}
-                  placeholder="E-mail"
-                />
-              </div>
-              <div className="uk-inline">
-                <input
-                  className="uk-input"
-                  name="password"
-                  type="password"
-                  value={password}
-                  required={true}
-                  onChange={e => this.onChange(e)}
-                  placeholder="Password"
-                />
-              </div>
-            </div>
-          </div>
-          <hr />
-          <br />
-          <div className="uk-container uk-container-expand uk-vertical-align-middle ">
-            <div className="uk-container uk-container-expand uk-vertical-align-middle">
-              <div className="uk-margin">
-                <button className="uk-button uk-button-default" type="submit">
-                  LOGIN
-                </button>
-              </div>
-              <br /><br />
+        {
+          isFetchingData ?
+            <Spinner name="circle" color="orange" />
+          :
+            <form
+              className="uk-panel uk-panel-box uk-form"
+              onSubmit={this.onSubmit}
+            >
+              <h1 className="text--orange uk-text-center">Login</h1>
               <hr />
-              <div className="uk-margin">
-                <button className="uk-button uk-button-default" onClick={this.onRegisterClick}>
-                  REGISTER
-                </button><br />
-                Are you new here?
+              <div className="uk-container">
+                <div className="uk-flex uk-flex-center uk-flex-wrap">
+                  <div className="uk-inline uk-margin-bottom uk-margin-top">
+                    <input
+                      className="uk-input"
+                      name="email"
+                      type="text"
+                      value={email}
+                      required={true}
+                      onChange={e => this.onChange(e)}
+                      placeholder="E-mail"
+                    />
+                  </div>
+                  <div className="uk-inline uk-margin-bottom">
+                    <input
+                      className="uk-input"
+                      name="password"
+                      type="password"
+                      value={password}
+                      required={true}
+                      onChange={e => this.onChange(e)}
+                      placeholder="Hasło"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        </form>
+              <hr />
+              <div className="uk-container">
+                <div className="uk-margin-top uk-flex uk-flex-center uk-margin-bottom">
+                  <button className="custom-button" type="submit">
+                    Zaloguj się
+              </button>
+                </div>
+                <hr />
+                <div className="uk-margin-top uk-flex uk-flex-middle uk-flex-wrap uk-flex-column uk-margin-bottom">
+                  <span className="uk-margin-top uk-text-bold uk-display-block">Nie masz konta?</span>
+                  <button className="custom-button uk-margin-top" onClick={() => this.setState({ redirect: true })}>
+                    Zarejestruj się
+                  </button>
+                </div>
+              </div>
+            </form>
+        }
       </div>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    user:state.user.current
+  }
+}
 
 
-export default connect(null, { setToken })(Login)
+export default connect(mapStateToProps, { setUser })(Login)
