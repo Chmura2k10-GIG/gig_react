@@ -92,7 +92,7 @@ export default class Register extends Component {
         }
 
         if(redirect){
-            return <Redirect to='/Login' />;
+            return <Redirect to='/' />;
         }
         
         return (
