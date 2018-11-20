@@ -28,13 +28,13 @@ html {
   background-color: #000;
   color: $app-orange;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .no-scroll {
-  overflow-y: hidden;
+  overflow-y: none;
   .main-content {
-    overflow-y: scroll;
+    overflow-y: none;
   }
 }
 
@@ -97,7 +97,7 @@ hr {
 }
 
 .main-content {
-  overflow-y: scroll;
+  overflow-y: none;
 }
 
 .sk-circle {
