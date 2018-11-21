@@ -16,6 +16,7 @@ export default class Register extends Component {
             password: '',
             gender: null,
             created: false,
+            avatar:'',
             firstName: '',
             lastName: '',
             city: '',
@@ -64,13 +65,17 @@ export default class Register extends Component {
     
     onSubmit(e) {
         e.preventDefault();
-        const { email, password, login, city } = this.state;
+        const { email, password, login, city, firstName, lastName, age, avatar } = this.state;
         const params = {
             "user":{
+                "firstname":firstName,
+                "lastname":lastName,
                 "email":email,
                 "password":password,
                 "login":login,
-                "city":city
+                "city":city,
+                "age":age,
+                "avatar":avatar
             }
         }
         if(this.validateForm()){
@@ -92,7 +97,7 @@ export default class Register extends Component {
         }
 
         if(redirect){
-            return <Redirect to='/Login' />;
+            return <Redirect to='/' />;
         }
         
         return (

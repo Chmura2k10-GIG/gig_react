@@ -27,12 +27,13 @@ class UserProfile extends Component {
   render() {
     const { showSidebar } = this.state;
     const { user } = this.props;
+    const { clickedUser } = this.props.location;
     return (
       <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between">
         <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.avatar} />
         <SidebarComponent clearToken={clearToken} user={user} showSidebar={showSidebar} />
         <Carousel>
-          <UserProfileDetailsComponent user={user} />
+          <UserProfileDetailsComponent user={user} clickedUser={clickedUser} />
           <UserProfileActivityComponent />
         </Carousel>
         <FooterComponent/>

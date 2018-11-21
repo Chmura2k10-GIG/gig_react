@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import placeholder from '../assets/images/placeholder-user.png';
 import Carousel from 'nuka-carousel';
 import Spinner from 'react-spinkit';
@@ -16,7 +17,9 @@ const DashboardSliderComponent = props =>{
         >
           {users.map((user,key) => {
             return(
-              user.avatar ? <img key={key} src={user.avatar} alt="user-avatar" /> : <img key={key} src={placeholder} alt="user-placeholder" />
+              <Link key={key} to={{pathname:"/profile", clickedUser:user}}>
+                {user.avatar ? <img src={user.avatar} alt="user-avatar" /> : <img src={placeholder} alt="user-placeholder" />}
+              </Link>
             )
           })}
         </Carousel> 

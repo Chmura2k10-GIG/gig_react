@@ -3,6 +3,7 @@ import avatar from ".././assets/images/User_Avatar2.png";
 
 const UserProfileDetailsComponent = props => {
   const { user } = props;
+  console.log(props)
   return(
     <div style={{ "marginTop": "60px" }} className="uk-flex uk-flex-middle uk-flex-column uk-flex-wrap">
       <img src={user.avatar || avatar} alt="user-avatar" className="uk-margin-medium-top avatar avatar--rounded avatar--large" />
