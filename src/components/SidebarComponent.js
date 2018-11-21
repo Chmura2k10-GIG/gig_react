@@ -21,6 +21,9 @@ const SidebarComponent = props => {
         <Link className="uk-margin-top" to="/profile">
           <span className="uk-text-bold text--medium">Wydarzenia</span>
         </Link>
+        <Link className="uk-margin-top" to="/bandprofile">
+          <span className="uk-text-bold text--medium">Mój Zespół</span>
+        </Link>
         <span onClick={props.clearToken} className="uk-text-bold text--medium uk-margin-top text--orange">Wyloguj się</span>
       </div>
     </div>

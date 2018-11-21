@@ -12,11 +12,6 @@ const UserProfileDetailsComponent = props => {
       currentUser.avatar  ? <img src={currentUser.avatar || avatar} alt="user-avatar" className="uk-margin-medium-top avatar avatar--rounded avatar--large" />:
       <img src={currentUser.placeholder || placeholder} alt="user-placeholder" className="uk-margin-medium-top avatar avatar--rounded avatar--large" />
     }
-    {console.log(currentUser.login)}
-    {console.log(currentUser.firstname)}
-    {console.log(currentUser.city)}
-    {console.log(currentUser.age)}
-    
       <div style={{ "padding": "0 25px" }} className="uk-flex uk-flex-column uk-flex-wrap uk-width-1-1">
         <h3 className="text--orange uk-text-bold uk-margin-small-top uk-text-center">{currentUser.login}</h3>
         <hr />

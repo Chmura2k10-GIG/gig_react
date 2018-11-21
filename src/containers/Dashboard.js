@@ -38,7 +38,7 @@ class Dashboard extends Component {
     return (
       <div style={nearUsers && nearUsers.length === 0 ? {"height":"100vh"} : null } className="uk-flex uk-flex-between uk-flex-column uk-flex-wrap">
         <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.current.avatar}/>
-        <div style={{"marginTop":"60px", "minHeight":"370px"}} className="uk-flex uk-flex-center uk-flex-wrap">
+        <div style={{"marginTop":"70px", "minHeight":"370px"}} className="uk-flex uk-flex-center uk-flex-wrap">
           <DashboardOptionsComponent 
             showUsers={() => this.setState({ showUsers: true })}
             showEvents={() => this.setState({ showUsers: false })}
