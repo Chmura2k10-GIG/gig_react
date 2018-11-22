@@ -1,0 +1,30 @@
+.custom-box{
+  background-color:#3b3635;
+  margin:30px;
+  width:90%;
+  box-shadow:0px 0 10px 3px orange;
+  border-radius: 25px;
+}
+
+.custom-text-box{
+  width:100%;
+  font-size:15px;
+}
+
+.custom-title{
+  margin-bottom: 0px;
+}
+
+.custom-grid{
+  display: flex;
+}
+
+.custom-input--event{
+  background-color: black;
+  border:solid 1px orange;
+  &:active,&:focus{
+    background-color: orange;
+    border:solid 1px black;
+    color:white;
+  }
+}

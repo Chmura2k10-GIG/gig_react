@@ -9,6 +9,7 @@
 @import "footer.scss";
 @import "utility.scss";
 @import "sidebar.scss";
+@import "event.scss";
 
 *{
   padding:0;
@@ -32,9 +33,9 @@ html {
 }
 
 .no-scroll {
-  overflow-y: hidden;
+  overflow-y: none;
   .main-content {
-    overflow-y: scroll;
+    overflow-y: none;
   }
 }
 
@@ -101,7 +102,7 @@ hr {
 }
 
 .main-content {
-  overflow-y: scroll;
+  overflow-y: none;
 }
 
 .sk-circle {

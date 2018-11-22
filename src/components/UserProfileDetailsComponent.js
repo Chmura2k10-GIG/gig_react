@@ -1,10 +1,10 @@
 import React from 'react'
 import avatar from ".././assets/images/User_Avatar2.png";
+import placeholder from '../assets/images/placeholder-user.png';
 
 const UserProfileDetailsComponent = props => {
   const { user, clickedUser, instrument } = props;
   const currentUser = clickedUser || user;
-  console.log(instrument,"INSTRUMENT")
   return(
     <div style={{ "marginTop": "60px" }} className="uk-flex uk-flex-middle uk-flex-column uk-flex-wrap">
       <img src={currentUser.avatar || avatar} alt="user-avatar" className="uk-margin-medium-top avatar avatar--rounded avatar--large" />

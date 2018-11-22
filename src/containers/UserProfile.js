@@ -30,7 +30,6 @@ class UserProfile extends Component {
     const { showSidebar, instruments } = this.state;
     const { user, token, clearToken } = this.props;
     const { clickedUser } = this.props.location;
-    console.log(clickedUser)
     if (token.length === 0) {
       return (
         <Redirect to="/" />
@@ -38,7 +37,7 @@ class UserProfile extends Component {
     }
     return (
       <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between">
-        <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.avatar} />
+        <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })}  avatar={user.avatar} />
         <SidebarComponent clearToken={clearToken} user={user} showSidebar={showSidebar} />
         <Carousel>
           <UserProfileDetailsComponent user={user} clickedUser={clickedUser} instrument={instruments} />
