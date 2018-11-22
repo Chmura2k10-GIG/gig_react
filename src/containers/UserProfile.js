@@ -25,7 +25,6 @@ class UserProfile extends Component {
     const currentUser = clickedUser || user;
     api.getUserInstruments(currentUser.id)
       .then(res => this.setState({ instruments: res.data}))
-    // this.setState({ instruments })
   }
 
   render() {

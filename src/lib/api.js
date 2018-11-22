@@ -56,6 +56,11 @@ class Api {
     return this.api.get("users/current");
   }
 
+  getEvents(){
+    this.setHeaders();
+    return this.api.get("events");
+  }
+
   searchUser(login){
     this.setHeaders();
     return this.api.get("users/search?login=" + login);
