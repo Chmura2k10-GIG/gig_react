@@ -42,8 +42,6 @@ class Api {
   }
 
   updateUserInstruments(params,id){
-    console.log(params, " W API")
-    console.log(id)
     this.setHeaders();
     return this.api.patch(`users/${id}/instruments`, params)
   }
@@ -56,6 +54,11 @@ class Api {
   getCurrentUser(){
     this.setHeaders();
     return this.api.get("users/current");
+  }
+
+  searchUser(login){
+    this.setHeaders();
+    return this.api.get("users/search?login=" + login);
   }
 }
 

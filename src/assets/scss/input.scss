@@ -5,6 +5,10 @@ input,textarea {
   }
 }
 
+::-webkit-input-placeholder{
+  color:#000 !important;
+}
+
 .input {
   &__search {
     border-bottom: 1px solid #000;

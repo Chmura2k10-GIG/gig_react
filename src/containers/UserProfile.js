@@ -29,8 +29,8 @@ class UserProfile extends Component {
   render() {
     const { showSidebar, instruments } = this.state;
     const { user, token, clearToken } = this.props;
-    console.log(instruments)
     const { clickedUser } = this.props.location;
+    console.log(clickedUser)
     if (token.length === 0) {
       return (
         <Redirect to="/" />
