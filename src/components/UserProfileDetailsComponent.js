@@ -24,7 +24,7 @@ const UserProfileDetailsComponent = props => {
         </div>
         <hr />
         <h3 className="text--orange uk-text-bold uk-margin-small-top uk-text-center">O mnie:</h3>
-        <span className="uk-display-block text--orange">{`${currentUser.description}`||`Brak opisu...`}</span>
+        <span className="uk-display-block text--orange">{currentUser.description}</span>
       </div>
     </div>
   )
