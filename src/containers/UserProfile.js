@@ -20,10 +20,12 @@ class UserProfile extends Component {
   }
 
   componentDidMount(){
-    const { user, instruments } = this.props
+    const { user } = this.props
     const { clickedUser } = this.props.location;
     const currentUser = clickedUser || user;
-    this.setState({ instruments })
+    api.getUserInstruments(currentUser.id)
+      .then(res => this.setState({ instruments: res.data}))
+    // this.setState({ instruments })
   }
 
   render() {
@@ -52,7 +54,6 @@ class UserProfile extends Component {
 const mapStateToProps = state => {
   return{
     user:state.user.current,
-    instruments:state.user.userInstruments,
     token:state.user.token
   }
 }
