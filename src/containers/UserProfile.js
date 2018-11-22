@@ -38,7 +38,7 @@ class UserProfile extends Component {
       )
     }
     return (
-      <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between">
+      <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between uk-scroll">
         <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })}  avatar={user.avatar} />
         <SidebarComponent clearToken={clearToken} user={user} showSidebar={showSidebar} />
         <Carousel>
