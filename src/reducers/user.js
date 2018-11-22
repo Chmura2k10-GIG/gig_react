@@ -1,6 +1,7 @@
 const initialState = {
     token:'',
     current:{},
+    userInstruments:[]
 };
 
 export default function(state = initialState, action) {
@@ -9,6 +10,11 @@ export default function(state = initialState, action) {
       return {
           ...state,
           current:action.payload
+      }
+    case "SET_USER_INSTRUMENT":
+      return {
+          ...state,
+          userInstruments:action.payload
       }
     case "SET_TOKEN":
       return {

@@ -15,9 +15,30 @@ export function setUser(params){
   }
 }
 
+export function updateUser(params, id){
+  return dispatch => {
+    return api.updateUser(params, id)
+    .then( res => dispatch(setCurrentUser(res.data)))
+  }
+}
+
+export function updateUserInstruments(params, id){
+  return dispatch => {
+    return api.updateUserInstruments(params, id)
+      .then( res => dispatch(setUserInstruments(res.data)))
+  }
+}
+
 export function setCurrentUser(params){
   return {
     type:"SET_CURRENT_USER",
+    payload:params
+  }
+}
+
+export function setUserInstruments(params){
+  return {
+    type:"SET_USER_INSTRUMENT",
     payload:params
   }
 }

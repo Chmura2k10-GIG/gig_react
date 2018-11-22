@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import api from "../api";
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 import { clearToken } from '../actions/user';
 import Carousel from 'nuka-carousel';
 import NavbarComponent from '../components/NavbarComponent';
@@ -19,22 +20,29 @@ class UserProfile extends Component {
   }
 
   componentDidMount(){
-    const { user } = this.props
-    api.getUserInstruments(user.id)
-      .then(res => this.setState({ instruments: res.data }))
+    const { user, instruments } = this.props
+    const { clickedUser } = this.props.location;
+    const currentUser = clickedUser || user;
+    this.setState({ instruments })
   }
 
   render() {
-    const { showSidebar } = this.state;
-    const { user } = this.props;
+    const { showSidebar, instruments } = this.state;
+    const { user, token, clearToken } = this.props;
+    console.log(instruments)
     const { clickedUser } = this.props.location;
+    if (token.length === 0) {
+      return (
+        <Redirect to="/" />
+      )
+    }
     return (
       <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between">
         <NavbarComponent showSidebar={() => this.setState({ showSidebar: !showSidebar })} avatar={user.avatar} />
         <SidebarComponent clearToken={clearToken} user={user} showSidebar={showSidebar} />
         <Carousel>
-          <UserProfileDetailsComponent user={user} clickedUser={clickedUser} />
-          <UserProfileActivityComponent />
+          <UserProfileDetailsComponent user={user} clickedUser={clickedUser} instrument={instruments} />
+          <UserProfileActivityComponent user={user} clickedUser={clickedUser} />
         </Carousel>
         <FooterComponent/>
       </div>
@@ -44,8 +52,10 @@ class UserProfile extends Component {
 
 const mapStateToProps = state => {
   return{
-    user:state.user.current
+    user:state.user.current,
+    instruments:state.user.userInstruments,
+    token:state.user.token
   }
 }
 
-export default connect(mapStateToProps, {})(UserProfile)
+export default connect(mapStateToProps, {clearToken})(UserProfile)

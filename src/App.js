@@ -5,6 +5,7 @@ import Login from "./containers/Login";
 import Register from "./containers/Register";
 import UserProfile from "./containers/UserProfile";
 import Dashboard from './containers/Dashboard';
+import EditProfile from './containers/EditProfile'
 
 const App = () => {
   return(
@@ -15,6 +16,7 @@ const App = () => {
             <Route path="/register" component={Register}></Route>
             <Route path="/dashboard" component={Dashboard}></Route>
             <Route path="/profile" component={UserProfile}></Route>
+            <Route path="/edit" component={EditProfile}></Route>
         </Switch>
     </div>
   )

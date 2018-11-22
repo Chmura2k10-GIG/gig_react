@@ -5,7 +5,7 @@ import Carousel from 'nuka-carousel';
 import Spinner from 'react-spinkit';
 
 const DashboardSliderComponent = props =>{
-  const { users } = props;
+  const { users, currentUser } = props;
   return(
     users?
       users.length === 0 ? 
@@ -17,9 +17,11 @@ const DashboardSliderComponent = props =>{
         >
           {users.map((user,key) => {
             return(
-              <Link key={key} to={{pathname:"/profile", clickedUser:user}}>
-                {user.avatar ? <img src={user.avatar} alt="user-avatar" /> : <img src={placeholder} alt="user-placeholder" />}
-              </Link>
+              user.login !== currentUser.current.login ?
+                <Link key={key} to={{pathname:"/profile", clickedUser:user}}>
+                  {user.avatar ? <img src={user.avatar} alt="user-avatar" /> : <img src={placeholder} alt="user-placeholder" />}
+                </Link>
+              : null
             )
           })}
         </Carousel> 

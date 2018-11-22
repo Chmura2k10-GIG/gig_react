@@ -7,7 +7,7 @@ class NavbarComponent extends Component {
   constructor(props){
     super(props)
     this.state={
-      searchValue:'Szukaj'
+      searchValue:'Szukaj muzyków...'
     }
   }
 

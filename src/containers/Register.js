@@ -3,7 +3,7 @@ import { notify } from 'react-notify-toast';
 import { Redirect } from 'react-router-dom';
 import api from "../api";
 import logo from './../assets/images/GigLogoOrange.png';
-import LoginSuccessComponent from '../components/LoginSuccessComponent';
+import SuccessInfoComponent from '../components/SuccessInfoComponent';
 import SelectComponent from '../components/SelectComponent';
 import RadioButtonComponent from '../components/RadioButtonComponent';
 
@@ -50,8 +50,8 @@ export default class Register extends Component {
             return false
         }
 
-        if (password.length < 8) {
-            notify.show('Hasło musi się składać z co najmniej 8 znaków', 'error')
+        if (password.length < 4) {
+            notify.show('Hasło musi się składać z co najmniej 4 znaków', 'error')
             return false
         }
 
@@ -104,7 +104,7 @@ export default class Register extends Component {
             <div className="uk-flex uk-flex-column uk-flex-wrap uk-flex-between" style={{"minHeight":"300px"}}>
                 <img style={{"marginLeft":"15px"}} className="app-logo" src={logo} alt="" />
                 {created ?
-                    <LoginSuccessComponent redirectToLogin={() => this.setState({ redirect: true })} />
+                    <SuccessInfoComponent message="Konto utworzone pomyślnie" buttonText="Zaloguj się" handler={() => this.setState({ redirect: true })} />
                 :
                     <form onSubmit={this.onSubmit}>
                         <h1 className="text--orange uk-text-center">Rejestracja</h1>

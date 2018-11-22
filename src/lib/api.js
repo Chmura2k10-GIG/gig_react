@@ -1,7 +1,8 @@
 import axios from "axios";
 import store from "../store";
 
-const url = "https://gigapi.herokuapp.com/";
+// const url = "https://gigapi.herokuapp.com/";
+const url = "http://localhost:3000/";
 
 class Api {
   constructor() {
@@ -25,6 +26,11 @@ class Api {
     return this.api.post('users/create', params);
   }
 
+  updateUser(params, id){
+    this.setHeaders();
+    return this.api.patch(`/user/${id}`, params)
+  }
+
   getInstruments(){
     this.setHeaders();
     return this.api.get('instruments');
@@ -33,6 +39,13 @@ class Api {
   getUserInstruments(id){
     this.setHeaders();
     return this.api.get(`users/${id}/instruments`)
+  }
+
+  updateUserInstruments(params,id){
+    console.log(params, " W API")
+    console.log(id)
+    this.setHeaders();
+    return this.api.patch(`users/${id}/instruments`, params)
   }
 
   getUserListByCities(city){
