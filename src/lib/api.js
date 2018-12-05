@@ -1,8 +1,8 @@
 import axios from "axios";
 import store from "../store";
 
-// const url = "https://gigapi.herokuapp.com/";
-const url = "http://localhost:3000/";
+const url = "https://gigapi.herokuapp.com/";
+// const url = "http://localhost:3000/";
 
 class Api {
   constructor() {
