@@ -47,7 +47,7 @@ class Dashboard extends Component {
           {showUsers?
               <DashboardSliderComponent currentUser={user} users={nearUsers} />
             : 
-            <DashboardEventComponent />
+            <DashboardEventComponent user={user} />
           }
         </div>
         <FooterComponent />

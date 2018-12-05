@@ -15,7 +15,8 @@ class UserProfile extends Component {
     super(props);
     this.state = {
       instruments: [],
-      showSidebar:false
+      showSidebar:false,
+      userEvents:[]
     };
   }
 
@@ -25,10 +26,14 @@ class UserProfile extends Component {
     const currentUser = clickedUser || user;
     api.getUserInstruments(currentUser.id)
       .then(res => this.setState({ instruments: res.data}))
+      .then(() => {
+        api.getUserEvents(currentUser.id)
+          .then( res => this.setState({ userEvents: res.data }))
+      })
   }
 
   render() {
-    const { showSidebar, instruments } = this.state;
+    const { showSidebar, instruments, userEvents } = this.state;
     const { user, token, clearToken } = this.props;
     const { clickedUser } = this.props.location;
     if (token.length === 0) {
@@ -42,7 +47,7 @@ class UserProfile extends Component {
         <SidebarComponent clearToken={clearToken} user={user} showSidebar={showSidebar} />
         <Carousel>
           <UserProfileDetailsComponent user={user} clickedUser={clickedUser} instrument={instruments} />
-          <UserProfileActivityComponent user={user} clickedUser={clickedUser} />
+          <UserProfileActivityComponent user={user} clickedUser={clickedUser} userEvents={userEvents} />
         </Carousel>
         <FooterComponent/>
       </div>

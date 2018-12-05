@@ -18,8 +18,8 @@ const SidebarComponent = props => {
         <Link className="uk-margin-top" to="/dashboard">
           <span className="uk-text-bold text--medium">Dashboard</span>
         </Link>
-        <Link className="uk-margin-top" to="/bandprofile">
-          <span className="uk-text-bold text--medium">Mój Zespół</span>
+        <Link className="uk-margin-top" to="/messenger">
+          <span className="uk-text-bold text--medium">Wiadomości</span>
         </Link>
         <span onClick={props.clearToken} className="uk-text-bold text--medium uk-margin-top text--orange">Wyloguj się</span>
       </div>

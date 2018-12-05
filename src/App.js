@@ -6,8 +6,9 @@ import Register from "./containers/Register";
 import UserProfile from "./containers/UserProfile";
 import Dashboard from './containers/Dashboard';
 import EditProfile from './containers/EditProfile'
-import BandProfile from './containers/BandProfile';
-
+import Messenger from './containers/Messenger';
+import Conversation from './containers/Conversation';
+import EventDetails from './containers/EventDetails';
 
 const App = () => {
   return(
@@ -19,8 +20,9 @@ const App = () => {
             <Route path="/dashboard" component={Dashboard}></Route>
             <Route path="/profile" component={UserProfile}></Route>
             <Route path="/edit" component={EditProfile}></Route>
-            <Route path="/bandprofile" component={BandProfile}></Route>
-        {/* <Route path="/eventcreator" component={EventCreator}></Route> */}
+            <Route path="/messenger" component={Messenger}></Route>
+            <Route path="/conversation/:id" component={Conversation}></Route>
+            <Route path="/event/:id" component={EventDetails}></Route>
         </Switch>
     </div>
   )

@@ -26,6 +26,11 @@ class Api {
     return this.api.post('users/create', params);
   }
 
+  getUsers(){
+    this.setHeaders();
+    return this.api.get('/users')
+  }
+
   updateUser(params, id){
     this.setHeaders();
     return this.api.patch(`/user/${id}`, params)
@@ -64,6 +69,46 @@ class Api {
   searchUser(login){
     this.setHeaders();
     return this.api.get("users/search?login=" + login);
+  }
+
+  addUserToEvent(userId, eventId){
+    this.setHeaders();
+    return this.api.post(`/events/${eventId}/user/${userId}`)
+  }
+
+  removeUserFromEvent(userId, eventId){
+    this.setHeaders();
+    return this.api.delete(`/events/${eventId}/user/${userId}`)
+  }
+
+  getUserEvents(userId){
+    this.setHeaders();
+    return this.api.get(`/user/${userId}/events`)
+  }
+
+  getEventUsers(eventId){
+    this.setHeaders();
+    return this.api.get(`/events/${eventId}/users`)
+  }
+
+  createEvent(userId,params){
+    this.setHeaders();
+    return this.api.post(`/events/user/${userId}`, params)
+  }
+
+  getUserConversations(){
+    this.setHeaders();
+    return this.api.get('/conversations')
+  }
+
+  createConversation(params){
+    this.setHeaders();
+    return this.api.post('/conversations', params)
+  }
+
+  showConversation(id){
+    this.setHeaders();
+    return this.api.get(`/conversations/${id}`)
   }
 }
 
